@@ -10,6 +10,7 @@ export type Category =
   | "Acessórios"
   | "Eletrônicos"
   | "Android";
+  
 
 export type Condition = "Novo" | "Usado";
 
