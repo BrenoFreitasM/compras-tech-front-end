@@ -3,14 +3,38 @@ import type { Product, ProductDto } from "./types";
 
 const WHATSAPP_USER_SUFFIX = "@s.whatsapp.net";
 
-/** "R$ 1.090,50" -> 1090.5 | invalid/empty -> null */
+/** "R$ 1.090,50" -> 1090.5 | "2.700" -> 2700 | invalid/empty -> null */
 export function parseBrlPrice(value: string | null): number | null {
   if (!value) return null;
 
-  const normalized = value
-    .replace(/[^\d,.]/g, "")
-    .replace(/\./g, "")
-    .replace(",", ".");
+  const cleaned = value.replace(/[^\d,.]/g, "");
+  if (!cleaned) return null;
+
+  const lastCommaIndex = cleaned.lastIndexOf(",");
+  const lastDotIndex = cleaned.lastIndexOf(".");
+
+  let decimalSeparator = "";
+  if (lastCommaIndex > -1 && lastDotIndex > -1) {
+    decimalSeparator = lastCommaIndex > lastDotIndex ? "," : ".";
+  } else if (lastCommaIndex > -1) {
+    decimalSeparator = ",";
+  } else if (lastDotIndex > -1) {
+    // If only dot exists, guess if it's decimal (2 digits) or thousand separator (3 digits)
+    const parts = cleaned.split(".");
+    const lastPart = parts[parts.length - 1];
+    decimalSeparator = lastPart.length === 2 ? "." : "";
+  }
+
+  let normalized = "";
+  const actualDecimalIndex = Math.max(lastCommaIndex, lastDotIndex);
+  for (let i = 0; i < cleaned.length; i++) {
+    const char = cleaned[i];
+    if (char === decimalSeparator && i === actualDecimalIndex) {
+      normalized += ".";
+    } else if (char !== "." && char !== ",") {
+      normalized += char;
+    }
+  }
 
   const price = Number.parseFloat(normalized);
   return Number.isFinite(price) ? price : null;
