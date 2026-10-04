@@ -28,6 +28,7 @@ export function parseProductFilters(params: SearchParams): ProductFilters {
     maxPrice: toPositiveNumber(read("maxPrice")),
     includeInactive: read("includeInactive") === "true",
     sort: isProductSort(sort) ? sort : DEFAULT_PRODUCT_FILTERS.sort,
+    page: toPositiveNumber(read("page")) || 1,
   };
 }
 
@@ -45,7 +46,7 @@ export function serializeProductFilters(filters: ProductFilters): string {
 }
 
 export function hasActiveFilters(filters: ProductFilters): boolean {
-  const { sort: _sort, ...criteria } = filters;
+  const { sort: _sort, page: _page, ...criteria } = filters;
   return (Object.keys(criteria) as Array<keyof typeof criteria>).some(
     (key) => criteria[key] !== undefined && criteria[key] !== DEFAULT_PRODUCT_FILTERS[key],
   );

@@ -48,22 +48,6 @@ export default function Header({ onMenuToggle }: HeaderProps) {
 
           {/* Actions */}
           <div className="flex items-center justify-end gap-2 xl:gap-3">
-            {/* Botão Ganhe 1 Mês VIP */}
-            <button
-              onClick={handleAffiliate}
-              title="Programa de Membros"
-              className="flex-shrink-0 flex min-h-9 items-center gap-1 px-2 py-1.5 rounded-lg
-                         bg-gradient-to-r from-[#2563EB] to-[#2563EB] hover:from-[#1D4ED8] hover:to-[#1D4ED8]
-                         text-white text-xs xl:text-sm font-bold shadow-sm xl:shadow-[0_3px_14px_rgba(37,99,235,0.38)]
-                         ring-1 ring-[#2563EB]/40 hover:-translate-y-0.5 transition-all"
-            >
-              <Gift className="w-3.5 h-3.5 xl:w-4 xl:h-4" />
-              <span className="xl:hidden">1 Mês VIP</span>
-              <span className="hidden xl:inline">Ganhe 1 Mês VIP</span>
-              <span className="ml-1 rounded-full bg-[#7C3AED] px-2 py-0.5 text-xs font-medium text-white">
-                Programa de Membros
-              </span>
-            </button>
 
             {/* User Menu */}
             <div className="relative">

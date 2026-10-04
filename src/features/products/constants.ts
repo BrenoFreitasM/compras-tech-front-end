@@ -30,6 +30,7 @@ export const DEFAULT_PRODUCT_FILTERS: ProductFilters = {
   maxPrice: undefined,
   includeInactive: false,
   sort: "recent",
+  page: 1,
 };
 
 /** URL query keys used to persist filters (keeps links shareable). */
@@ -42,6 +43,7 @@ export const FILTER_QUERY_KEYS = {
   maxPrice: "precoMax",
   includeInactive: "incluirAntigos",
   sort: "ordem",
+  page: "pagina",
 } as const satisfies Record<keyof ProductFilters, string>;
 
 export const SEARCH_DEBOUNCE_MS = 400;

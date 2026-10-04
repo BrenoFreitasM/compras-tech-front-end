@@ -134,7 +134,7 @@ export function ProductFiltersPanel({ categories }: ProductFiltersPanelProps) {
           </div>
         </FilterSection>
 
-        <FilterSection title="Disponibilidade" defaultOpen={false}>
+        {/* <FilterSection title="Disponibilidade" defaultOpen={false}>
           <label className="flex items-center gap-3 cursor-pointer">
             <input
               type="checkbox"
@@ -144,7 +144,7 @@ export function ProductFiltersPanel({ categories }: ProductFiltersPanelProps) {
             />
             <span className="text-sm text-text-secondary">Incluir ofertas de dias anteriores</span>
           </label>
-        </FilterSection>
+        </FilterSection> */}
       </div>
     </div>
   );

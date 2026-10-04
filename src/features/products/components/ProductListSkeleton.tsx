@@ -1,4 +1,4 @@
-const SKELETON_ITEMS = 8;
+const SKELETON_ITEMS = 6;
 
 export function ProductListSkeleton() {
   return (
@@ -7,18 +7,22 @@ export function ProductListSkeleton() {
         <div className="h-5 w-40 rounded bg-gray-200 dark:bg-gray-800" />
         <div className="h-4 w-28 rounded bg-gray-200 dark:bg-gray-800" />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+      <div className="flex flex-col gap-3">
         {Array.from({ length: SKELETON_ITEMS }, (_, index) => (
           <div
             key={index}
-            className="rounded-2xl border border-brand-border  overflow-hidden"
+            className="rounded-2xl border border-brand-border flex flex-col sm:flex-row gap-4 p-4"
           >
-            <div className="aspect-[4/3] bg-gray-200 dark:bg-gray-800" />
-            <div className="p-3 space-y-2">
-              <div className="h-3 w-16 rounded bg-gray-200 dark:bg-gray-800" />
-              <div className="h-4 w-3/4 rounded bg-gray-200 dark:bg-gray-800" />
-              <div className="h-5 w-24 rounded bg-gray-200 dark:bg-gray-800" />
-              <div className="h-8 w-full rounded-lg bg-gray-200 dark:bg-gray-800" />
+            <div className="w-full h-24 sm:w-28 sm:h-28 rounded-xl flex-shrink-0 bg-gray-200 dark:bg-gray-800" />
+            <div className="flex flex-1 flex-col justify-between py-1 space-y-3">
+              <div className="space-y-2">
+                <div className="h-3 w-16 rounded bg-gray-200 dark:bg-gray-800" />
+                <div className="h-4 w-3/4 rounded bg-gray-200 dark:bg-gray-800" />
+              </div>
+              <div className="flex justify-between items-end mt-auto">
+                <div className="h-5 w-24 rounded bg-gray-200 dark:bg-gray-800" />
+                <div className="h-8 w-48 rounded-lg bg-gray-200 dark:bg-gray-800" />
+              </div>
             </div>
           </div>
         ))}

@@ -17,10 +17,12 @@ function toApiQuery(filters: ProductFilters): QueryParams {
     armazenamento: escapeRegex(filters.storage),
     cor: escapeRegex(filters.color),
     active: filters.includeInactive ? undefined : true,
+    page: filters.page,
+    limit: 20, // explicitly ask for 20 per page just in case
   };
 }
 
-export async function listProducts(filters: ProductFilters): Promise<Product[]> {
+export async function listProducts(filters: ProductFilters): Promise<import("./types").PaginatedProducts> {
   const response = await api.get<ListProductsResponse | ProductDto[]>(PRODUCTS_ENDPOINT, {
     params: toApiQuery(filters),
     cache: "no-store",
@@ -28,7 +30,16 @@ export async function listProducts(filters: ProductFilters): Promise<Product[]> 
 
   const rawData = Array.isArray(response) ? response : response.data;
   const products = (rawData || []).map(toProduct);
-  return sortProducts(applyLocalFilters(products, filters), filters.sort);
+  const sorted = sortProducts(applyLocalFilters(products, filters), filters.sort);
+
+  return {
+    products: sorted,
+    pagination: {
+      currentPage: Array.isArray(response) ? 1 : response.currentPage ?? 1,
+      totalPages: Array.isArray(response) ? 1 : response.totalPages ?? 1,
+      totalCount: Array.isArray(response) ? sorted.length : response.totalCount ?? sorted.length,
+    },
+  };
 }
 
 export async function listCategories(): Promise<string[]> {

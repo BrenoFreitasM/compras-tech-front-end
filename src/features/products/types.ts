@@ -30,6 +30,9 @@ export interface ListCategoriesResponse {
 export interface ListProductsResponse {
   success: boolean;
   count: number;
+  totalCount?: number;
+  totalPages?: number;
+  currentPage?: number;
   data: ProductDto[];
 }
 
@@ -60,6 +63,18 @@ export interface ProductFilters {
   maxPrice?: number;
   includeInactive: boolean;
   sort: ProductSort;
+  page: number;
+}
+
+export interface PaginationMeta {
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
+}
+
+export interface PaginatedProducts {
+  products: Product[];
+  pagination: PaginationMeta;
 }
 
 export type SearchParams = Record<string, string | string[] | undefined>;

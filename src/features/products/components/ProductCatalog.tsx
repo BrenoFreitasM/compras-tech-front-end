@@ -1,22 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { Grid, List, Package } from "lucide-react";
+import { ChevronLeft, ChevronRight, Package } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SORT_OPTIONS } from "../constants";
 import { useProductFilters } from "../hooks/useProductFilters";
-import type { Product, ProductSort } from "../types";
-import { ProductCard, type ProductCardLayout } from "./ProductCard";
+import type { PaginationMeta, Product, ProductSort } from "../types";
+import { ProductCard } from "./ProductCard";
 
 interface ProductCatalogProps {
   products: Product[];
+  pagination: PaginationMeta;
   title: string;
 }
-
-const VIEW_OPTIONS: ReadonlyArray<{ value: ProductCardLayout; label: string; Icon: typeof Grid }> = [
-  { value: "list", label: "Lista", Icon: List },
-  { value: "grid", label: "Cards", Icon: Grid },
-];
 
 function EmptyState({ onClear }: { onClear: () => void }) {
   return (
@@ -35,10 +30,9 @@ function EmptyState({ onClear }: { onClear: () => void }) {
   );
 }
 
-export function ProductCatalog({ products, title }: ProductCatalogProps) {
-  const [layout, setLayout] = useState<ProductCardLayout>("grid");
+export function ProductCatalog({ products, pagination, title }: ProductCatalogProps) {
   const { filters, updateFilters, clearFilters, isPending } = useProductFilters();
-  const countLabel = products.length === 1 ? "produto encontrado" : "produtos encontrados";
+  const countLabel = pagination.totalCount === 1 ? "produto encontrado" : "produtos encontrados";
 
   return (
     <section aria-busy={isPending} className={cn("transition-opacity", isPending && "opacity-60")}>
@@ -46,32 +40,11 @@ export function ProductCatalog({ products, title }: ProductCatalogProps) {
         <div>
           <h1 className="text-lg font-bold text-text-primary ">{title}</h1>
           <p className="text-sm text-text-secondary  mt-0.5">
-            {products.length} {countLabel}
+            {pagination.totalCount} {countLabel}
           </p>
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1 bg-brand-surface dark:bg-brand-card rounded-lg border border-brand-border  shadow-sm p-1">
-            {VIEW_OPTIONS.map(({ value, label, Icon }) => (
-              <button
-                key={value}
-                type="button"
-                aria-pressed={layout === value}
-                onClick={() => setLayout(value)}
-                title={`Visualização em ${label.toLowerCase()}`}
-                className={cn(
-                  "flex items-center gap-2 px-3 py-2 rounded-md transition-all duration-200",
-                  layout === value
-                    ? "bg-[#2563EB] text-white shadow-md"
-                    : "text-text-muted hover:bg-gray-100 dark:hover:bg-gray-700",
-                )}
-              >
-                <Icon className="w-5 h-5" />
-                <span className="text-sm font-medium hidden sm:inline">{label}</span>
-              </button>
-            ))}
-          </div>
-
           <select
             aria-label="Ordenar produtos"
             value={filters.sort}
@@ -90,17 +63,41 @@ export function ProductCatalog({ products, title }: ProductCatalogProps) {
       {products.length === 0 ? (
         <EmptyState onClear={clearFilters} />
       ) : (
-        <div
-          className={
-            layout === "grid"
-              ? "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4"
-              : "flex flex-col gap-3"
-          }
-        >
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} layout={layout} />
-          ))}
-        </div>
+        <>
+          <div className="flex flex-col gap-3">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          {pagination.totalPages > 1 && (
+            <div className="mt-8 flex items-center justify-center gap-2">
+              <button
+                type="button"
+                disabled={pagination.currentPage <= 1}
+                onClick={() => updateFilters({ page: pagination.currentPage - 1 })}
+                className="p-2 rounded-lg border border-brand-border bg-brand-surface text-text-secondary hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none transition-colors"
+                aria-label="Página anterior"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              <span className="text-sm font-medium text-text-secondary px-4">
+                Página {pagination.currentPage} de {pagination.totalPages}
+              </span>
+
+              <button
+                type="button"
+                disabled={pagination.currentPage >= pagination.totalPages}
+                onClick={() => updateFilters({ page: pagination.currentPage + 1 })}
+                className="p-2 rounded-lg border border-brand-border bg-brand-surface text-text-secondary hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none transition-colors"
+                aria-label="Próxima página"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          )}
+        </>
       )}
     </section>
   );

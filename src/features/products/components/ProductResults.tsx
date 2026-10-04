@@ -32,15 +32,15 @@ function ErrorState({ message }: { message: string }) {
 
 /** Server Component: fetches products on the server so the back-end URL stays private and CORS is not needed. */
 export async function ProductResults({ filters }: ProductResultsProps) {
-  let products: Product[];
+  let result: import("../types").PaginatedProducts;
 
   try {
-    products = await listProducts(filters);
+    result = await listProducts(filters);
   } catch (error) {
     console.error("[ProductResults] Failed to list products:", error);
     return <ErrorState message={getErrorMessage(error)} />;
   }
 
   const title = hasActiveFilters(filters) ? "Resultados da busca" : "Ofertas do dia";
-  return <ProductCatalog products={products} title={title} />;
+  return <ProductCatalog products={result.products} pagination={result.pagination} title={title} />;
 }

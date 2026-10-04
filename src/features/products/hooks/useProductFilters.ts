@@ -26,7 +26,7 @@ export function useProductFilters() {
   );
 
   const updateFilters = useCallback(
-    (patch: Partial<ProductFilters>) => navigate({ ...filters, ...patch }),
+    (patch: Partial<ProductFilters>) => navigate({ ...filters, page: 1, ...patch }),
     [filters, navigate],
   );
 

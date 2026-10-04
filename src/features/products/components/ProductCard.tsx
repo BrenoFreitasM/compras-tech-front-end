@@ -1,15 +1,8 @@
 import Image from "next/image";
 import { Calendar, MessageCircle } from "lucide-react";
-import { cn, formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { getProductTitle } from "../mappers";
 import type { Product } from "../types";
-
-export type ProductCardLayout = "grid" | "list";
-
-interface ProductCardProps {
-  product: Product;
-  layout: ProductCardLayout;
-}
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit" });
 
@@ -58,22 +51,10 @@ function ContactButton({ whatsappUrl }: { whatsappUrl: string | null }) {
   );
 }
 
-export function ProductCard({ product, layout }: ProductCardProps) {
-  const isList = layout === "list";
-
+export function ProductCard({ product }: { product: Product }) {
   return (
-    <article
-      className={cn(
-        "group bg-brand-surface rounded-2xl border border-brand-border  hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/30 transition-all duration-200",
-        isList ? "flex flex-col sm:flex-row gap-4 p-4" : "flex flex-col overflow-hidden hover:-translate-y-0.5",
-      )}
-    >
-      <div
-        className={cn(
-          "relative overflow-hidden bg-gray-50 dark:bg-gray-900",
-          isList ? "w-full h-24 sm:w-28 sm:h-28 rounded-xl flex-shrink-0" : "aspect-[4/3]",
-        )}
-      >
+    <article className="group bg-brand-surface rounded-2xl border border-brand-border hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/30 transition-all duration-200 flex flex-col sm:flex-row gap-4 p-4">
+      <div className="relative overflow-hidden bg-gray-50 dark:bg-gray-900 w-full h-24 sm:w-28 sm:h-28 rounded-xl flex-shrink-0">
         <Image
           src={product.imageUrl}
           alt={getProductTitle(product)}
@@ -83,7 +64,7 @@ export function ProductCard({ product, layout }: ProductCardProps) {
         />
       </div>
 
-      <div className={cn("flex flex-1 flex-col min-w-0", !isList && "p-3")}>
+      <div className="flex flex-1 flex-col min-w-0">
         <div className="flex items-center justify-between gap-2">
           <span className="text-[10px] font-semibold text-[#2563EB] uppercase tracking-wider">{product.category}</span>
           <span className="flex items-center gap-1 text-[10px] text-text-tertiary">
@@ -92,21 +73,21 @@ export function ProductCard({ product, layout }: ProductCardProps) {
           </span>
         </div>
 
-        <h3 className="text-sm font-semibold text-text-primary  mt-0.5 line-clamp-2 leading-snug">
+        <h3 className="text-sm font-semibold text-text-primary mt-0.5 line-clamp-2 leading-snug">
           {getProductTitle(product)}
         </h3>
 
         <ProductSpecs product={product} />
 
         {product.notes && (
-          <p className="text-[11px] text-text-tertiary  mt-2 line-clamp-2">{product.notes}</p>
+          <p className="text-[11px] text-text-tertiary mt-2 line-clamp-2">{product.notes}</p>
         )}
 
-        <div className={cn("mt-auto pt-3 flex gap-3", isList ? "sm:items-center" : "flex-col")}>
-          <span className="text-base font-extrabold text-text-primary ">
+        <div className="mt-auto pt-3 flex gap-3 sm:items-center">
+          <span className="text-base font-extrabold text-text-primary">
             {product.price !== null ? formatCurrency(product.price) : "Preço sob consulta"}
           </span>
-          <div className={cn("flex", isList && "sm:ml-auto sm:w-48")}>
+          <div className="flex sm:ml-auto sm:w-48">
             <ContactButton whatsappUrl={product.whatsappUrl} />
           </div>
         </div>
