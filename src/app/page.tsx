@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronRight } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
@@ -22,6 +22,10 @@ export default function HomePage() {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  useEffect(() => {
+    console.log("Frontend subindo na rota: / (Home)");
+  }, []);
 
   return (
     <div className="bp-shell min-h-screen transition-colors duration-300">
@@ -46,7 +50,7 @@ export default function HomePage() {
           {sidebarCollapsed && (
             <button
               onClick={() => setSidebarCollapsed(false)}
-              className="hidden lg:flex fixed left-0 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-6 h-12 bg-brand-surface dark:bg-brand-card border border-brand-border dark:border-brand-border-strong border-l-0 rounded-r-lg shadow-sm text-text-secondary hover:text-orange-500 transition-colors"
+              className="hidden lg:flex fixed left-0 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-6 h-12 bg-brand-surface dark:bg-brand-card border border-brand-border dark:border-brand-border-strong border-l-0 rounded-r-lg shadow-sm text-text-secondary hover:text-[#2563EB] transition-colors"
             >
               <ChevronRight className="w-4 h-4" />
             </button>

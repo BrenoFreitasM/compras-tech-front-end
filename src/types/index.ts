@@ -1,4 +1,4 @@
-// Tipos do domínio BuskaPhone
+// Tipos do domínio ComprasTech
 
 export type Category =
   | "iPhone"

@@ -1,12 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Store, Package, Gift, ChevronDown, Menu, X } from "lucide-react";
+import {
+  Search,
+  Gift,
+  ChevronDown,
+  Menu,
+  Sun,
+  Moon,
+  User,
+  ShoppingBag,
+  LogOut,
+} from "lucide-react";
 import { formatNumber } from "@/lib/utils";
 import { toast } from "sonner";
-
-const TOTAL_SUPPLIERS = 97;
-const TOTAL_OFFERS = 6200;
+import { useTheme } from "@/components/ThemeProvider";
 
 interface HeaderProps {
   onSearch: (value: string) => void;
@@ -16,43 +24,33 @@ interface HeaderProps {
 
 export default function Header({ onSearch, searchValue, onMenuToggle }: HeaderProps) {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   function handleAffiliate() {
-    toast.success("Programa de indicação", {
-      description: "Em breve você poderá indicar amigos e ganhar R$150!",
+    toast.success("Ganhe 1 Mês VIP", {
+      description: "Programa de Membros – aproveite benefícios exclusivos!",
     });
   }
 
   return (
-    <header className="sticky top-0 z-40 bg-brand-surface/95 dark:bg-brand-card/95 backdrop-blur-xl border-b border-brand-border dark:border-brand-border-strong">
+    <header className="sticky top-0 z-40 bg-[#F8FAFC] dark:bg-[#0F172A] backdrop-blur-xl border-b border-brand-border dark:border-brand-border-strong">
       {/* Desktop */}
       <div className="hidden md:block">
         <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 xl:gap-7 2xl:gap-10 px-4 lg:px-6 xl:px-8 2xl:px-12 h-14 lg:h-16 w-full">
-          {/* Logo + Stats */}
+          {/* Logo */}
           <div className="flex min-w-0 items-center gap-3 xl:gap-4">
             <a href="/" className="flex-shrink-0">
-              <span className="text-xl font-extrabold text-orange-500 tracking-tight">
-                Buska<span className="text-text-primary dark:text-white">Phone</span>
+              <span className="text-xl font-extrabold text-[#2563EB] tracking-tight">
+                ComprasTech<span className="text-text-primary dark:text-white">.app.br</span>
               </span>
             </a>
-
-            <div className="hidden xl:flex items-center gap-3 px-3 py-1.5 bg-gray-100/80 dark:bg-gray-800/50 rounded-lg">
-              <div className="flex items-center gap-1.5 text-xs text-text-secondary">
-                <Store className="w-3.5 h-3.5 text-orange-500" />
-                <span className="font-medium text-text-primary">{TOTAL_SUPPLIERS}</span>
-                <span className="hidden 2xl:inline">fornecedores</span>
-              </div>
-              <div className="w-px h-3 bg-gray-300 dark:bg-gray-600" />
-              <div className="flex items-center gap-1.5 text-xs text-text-secondary">
-                <Package className="w-3.5 h-3.5 text-orange-500" />
-                <span className="font-medium text-text-primary">{formatNumber(TOTAL_OFFERS)}</span>
-                <span className="hidden 2xl:inline">ofertas</span>
-              </div>
-            </div>
           </div>
 
           {/* Search */}
-          <form className="w-full min-w-0 max-w-4xl justify-self-center" onSubmit={(e) => e.preventDefault()}>
+          <form
+            className="w-full min-w-0 max-w-4xl justify-self-center"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <div className="relative">
               <Search className="absolute left-3 lg:left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-tertiary pointer-events-none" />
               <input
@@ -60,50 +58,109 @@ export default function Header({ onSearch, searchValue, onMenuToggle }: HeaderPr
                 placeholder="Buscar produtos..."
                 value={searchValue}
                 onChange={(e) => onSearch(e.target.value)}
-                className="w-full h-10 lg:h-11 pl-9 lg:pl-11 pr-9 bg-white dark:bg-brand-background border border-brand-border dark:border-brand-border-strong rounded-xl text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all text-sm lg:text-base dark:text-white"
+                className="w-full h-10 lg:h-11 pl-9 lg:pl-11 pr-9 bg-white dark:bg-brand-background border border-brand-border dark:border-brand-border-strong rounded-xl text-text-primary dark:text-white placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB] transition-all text-sm lg:text-base"
               />
             </div>
           </form>
 
           {/* Actions */}
           <div className="flex items-center justify-end gap-2 xl:gap-3">
+            {/* Botão Ganhe 1 Mês VIP */}
             <button
               onClick={handleAffiliate}
-              title="Indique e ganhe R$150"
-              className="flex-shrink-0 flex min-h-9 items-center gap-1 px-2 py-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white text-xs xl:text-sm font-bold shadow-sm xl:shadow-[0_3px_14px_rgba(255,77,0,0.38)] ring-1 ring-orange-300/40 hover:-translate-y-0.5 transition-all"
+              title="Programa de Membros"
+              className="flex-shrink-0 flex min-h-9 items-center gap-1 px-2 py-1.5 rounded-lg
+                         bg-gradient-to-r from-[#2563EB] to-[#2563EB] hover:from-[#1D4ED8] hover:to-[#1D4ED8]
+                         text-white text-xs xl:text-sm font-bold shadow-sm xl:shadow-[0_3px_14px_rgba(37,99,235,0.38)]
+                         ring-1 ring-[#2563EB]/40 hover:-translate-y-0.5 transition-all"
             >
               <Gift className="w-3.5 h-3.5 xl:w-4 xl:h-4" />
-              <span className="xl:hidden">R$150</span>
-              <span className="hidden xl:inline">Ganhe R$150</span>
+              <span className="xl:hidden">1 Mês VIP</span>
+              <span className="hidden xl:inline">Ganhe 1 Mês VIP</span>
+              <span className="ml-1 rounded-full bg-[#7C3AED] px-2 py-0.5 text-xs font-medium text-white">
+                Programa de Membros
+              </span>
             </button>
 
+            {/* User Menu */}
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="flex items-center gap-2 transition-all px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"
               >
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-sm font-bold shadow-md">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563EB] to-[#2563EB] flex items-center justify-center text-white text-sm font-bold shadow-md">
                   IR
                 </div>
                 <span className="hidden lg:block text-sm font-medium text-text-primary dark:text-white max-w-24 truncate">
-                  Isac reis
+                  Isac Reis
                 </span>
-                <ChevronDown className={`w-4 h-4 text-text-secondary transition-transform ${userMenuOpen ? "rotate-180" : ""}`} />
+                <ChevronDown
+                  className={`w-4 h-4 text-text-secondary transition-transform ${userMenuOpen ? "rotate-180" : ""}`}
+                />
               </button>
 
               {userMenuOpen && (
-                <div className="absolute right-0 top-full mt-1 w-48 bg-white dark:bg-brand-card border border-brand-border dark:border-brand-border-strong rounded-xl shadow-lg py-1 animate-fade-in">
-                  <a href="#" className="block px-4 py-2 text-sm text-text-primary dark:text-white hover:bg-gray-50 dark:hover:bg-white/5">
-                    Meu Perfil
-                  </a>
-                  <a href="#" className="block px-4 py-2 text-sm text-text-primary dark:text-white hover:bg-gray-50 dark:hover:bg-white/5">
-                    Meus Pedidos
-                  </a>
-                  <hr className="my-1 border-brand-border dark:border-brand-border-strong" />
-                  <a href="#" className="block px-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20">
-                    Sair
-                  </a>
-                </div>
+                <>
+                  <div className="fixed inset-0 z-10" onClick={() => setUserMenuOpen(false)} />
+                  <div className="absolute right-0 top-full mt-2 w-52 bg-white dark:bg-brand-card border border-brand-border dark:border-brand-border-strong rounded-xl shadow-xl py-1 z-20 animate-fade-in">
+                    {/* user info */}
+                    <div className="px-4 py-3 border-b border-brand-border dark:border-brand-border-strong">
+                      <p className="text-sm font-semibold text-text-primary dark:text-white">Isac Reis</p>
+                      <p className="text-xs text-text-secondary dark:text-gray-400 truncate">isac@email.com</p>
+                    </div>
+                    {/* menu items */}
+                    <a
+                      href="#"
+                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-text-primary dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+                    >
+                      <User className="w-4 h-4 text-text-secondary" />
+                      Meu Perfil
+                    </a>
+                    <a
+                      href="#"
+                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-text-primary dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+                    >
+                      <ShoppingBag className="w-4 h-4 text-text-secondary" />
+                      Meus Pedidos
+                    </a>
+                    {/* dark/light toggle */}
+                    <div className="px-4 py-2.5 border-t border-brand-border dark:border-brand-border-strong mt-1">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                          {theme === "dark" ? (
+                            <Moon className="w-4 h-4 text-text-secondary" />
+                          ) : (
+                            <Sun className="w-4 h-4 text-text-secondary" />
+                          )}
+                          <span className="text-sm text-text-primary dark:text-white">
+                            {theme === "dark" ? "Modo Escuro" : "Modo Claro"}
+                          </span>
+                        </div>
+                        <button
+                          onClick={toggleTheme}
+                          className={`relative w-10 h-6 rounded-full transition-colors duration-300 focus:outline-none ${
+                            theme === "dark" ? "bg-[#2563EB]" : "bg-gray-200"
+                          }`}
+                          aria-label="Alternar tema"
+                        >
+                          <span
+                            className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 ${
+                              theme === "dark" ? "translate-x-4" : "translate-x-0"
+                            }`}
+                          />
+                        </button>
+                      </div>
+                    </div>
+                    <hr className="my-1 border-brand-border dark:border-brand-border-strong" />
+                    <a
+                      href="#"
+                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sair
+                    </a>
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -119,36 +176,26 @@ export default function Header({ onSearch, searchValue, onMenuToggle }: HeaderPr
           >
             <Menu className="w-6 h-6" />
           </button>
-
           <div className="flex flex-col items-center">
             <a href="/" className="flex-shrink-0">
-              <span className="text-lg font-extrabold text-orange-500 tracking-tight">
-                Buska<span className="text-text-primary dark:text-white">Phone</span>
+              <span className="text-lg font-extrabold text-[#2563EB] tracking-tight">
+                ComprasTech<span className="text-text-primary dark:text-white">.app.br</span>
               </span>
             </a>
-            <div className="flex items-center gap-2 text-[10px] text-text-tertiary mt-0.5">
-              <span>{TOTAL_SUPPLIERS} fornecedores</span>
-              <span>•</span>
-              <span>{formatNumber(TOTAL_OFFERS)} ofertas</span>
-            </div>
           </div>
-
           <div className="flex items-center gap-2">
             <button
-              onClick={handleAffiliate}
-              title="Indique e ganhe R$150"
-              className="flex min-h-9 items-center gap-1 px-2 py-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 text-white text-[11px] font-bold shadow-sm ring-1 ring-orange-300/30"
+              onClick={toggleTheme}
+              className="p-2 text-text-secondary hover:text-text-primary hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors"
+              aria-label="Alternar tema"
             >
-              <Gift className="w-3.5 h-3.5" />
-              <span>R$150</span>
+              {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-sm font-bold shadow-md">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563EB] to-[#2563EB] flex items-center justify-center text-white text-sm font-bold shadow-md">
               IR
             </div>
           </div>
         </div>
-
-        {/* Mobile search bar */}
         <div className="px-4 pb-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-tertiary pointer-events-none" />
@@ -157,7 +204,7 @@ export default function Header({ onSearch, searchValue, onMenuToggle }: HeaderPr
               placeholder="Buscar produtos..."
               value={searchValue}
               onChange={(e) => onSearch(e.target.value)}
-              className="w-full h-10 pl-9 pr-4 bg-white dark:bg-brand-background border border-brand-border dark:border-brand-border-strong rounded-xl text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all text-sm dark:text-white"
+              className="w-full h-10 pl-9 pr-4 bg-white dark:bg-brand-background border border-brand-border dark:border-brand-border-strong rounded-xl text-text-primary dark:text-white placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB] transition-all text-sm"
             />
           </div>
         </div>

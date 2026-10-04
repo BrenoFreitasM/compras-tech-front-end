@@ -59,7 +59,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {product.stock <= 3 && (
           <div className="absolute bottom-2 left-2">
-            <span className="bg-orange-500/90 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">
+            <span className="bg-[#7C3AED]/90 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">
               Últimas {product.stock} unidades
             </span>
           </div>
@@ -69,7 +69,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Conteúdo */}
       <div className="p-3">
         {/* Categoria */}
-        <span className="text-[10px] font-semibold text-orange-500 uppercase tracking-wider">
+        <span className="text-[10px] font-semibold text-[#2563EB] uppercase tracking-wider">
           {product.category}
         </span>
 
@@ -119,13 +119,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="mt-3 flex gap-2">
           <button
             onClick={handleContact}
-            className="flex-1 h-8 text-xs font-semibold border border-orange-500 text-orange-500 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors"
+            className="flex-1 h-8 text-xs font-semibold border border-[#2563EB] text-[#2563EB] rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
           >
             Contato
           </button>
           <button
             onClick={handleBuy}
-            className="flex-1 h-8 text-xs font-semibold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white rounded-lg flex items-center justify-center gap-1 transition-all"
+            className="flex-1 h-8 text-xs font-semibold bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1E40AF] text-white rounded-lg flex items-center justify-center gap-1 transition-all"
           >
             <ShoppingCart className="w-3.5 h-3.5" />
             Comprar
