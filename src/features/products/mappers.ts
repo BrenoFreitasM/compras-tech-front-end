@@ -42,9 +42,18 @@ export function parseBrlPrice(value: string | null): number | null {
 
 /** Only direct chats have a phone number; group JIDs (@g.us) return null. */
 export function toWhatsAppUrl(remoteJid: string): string | null {
-  if (!remoteJid.endsWith(WHATSAPP_USER_SUFFIX)) return null;
-
-  const phone = remoteJid.replace(WHATSAPP_USER_SUFFIX, "").replace(/\D/g, "");
+  if (!remoteJid) return null;
+  
+  // Se for um JID de grupo (legado), não geramos link direto
+  if (remoteJid.includes("@g.us")) {
+    return null;
+  }
+  
+  // WhatsApp JIDs às vezes vêm com ":", ex: 5511999999999:12@s.whatsapp.net
+  // Vamos pegar apenas a parte antes do @ e do :
+  const jidPart = remoteJid.split('@')[0].split(':')[0];
+  const phone = jidPart.replace(/\D/g, "");
+  
   return phone ? `https://wa.me/${phone}` : null;
 }
 

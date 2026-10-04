@@ -13,6 +13,7 @@ export const COLOR_OPTIONS = [
   { label: "Laranja", value: "laranja", hex: "#F97316" },
   { label: "Vermelho", value: "vermelho", hex: "#EF4444" },
   { label: "Dourado", value: "dourado", hex: "#EAB308" },
+  { label: "Sem cor", value: "sem cor", hex: "transparent" },
 ] as const;
 
 export const SORT_OPTIONS: ReadonlyArray<{ value: ProductSort; label: string }> = [

@@ -129,6 +129,7 @@ export function ProductFiltersPanel({ categories }: ProductFiltersPanelProps) {
           <div className="flex flex-wrap gap-3">
             {COLOR_OPTIONS.map((colorOption) => {
               const isSelected = filters.color === colorOption.value;
+              const isTransparent = colorOption.hex === "transparent";
               return (
                 <button
                   key={colorOption.value}
@@ -137,13 +138,19 @@ export function ProductFiltersPanel({ categories }: ProductFiltersPanelProps) {
                   title={colorOption.label}
                   aria-pressed={isSelected}
                   onClick={() => updateFilters({ color: isSelected ? "" : colorOption.value })}
-                  className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 ${
+                  className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 flex items-center justify-center relative overflow-hidden ${
                     isSelected
                       ? "border-blue-600 ring-2 ring-blue-500/30 ring-offset-2 dark:ring-offset-gray-950 scale-110"
                       : "border-black/10 dark:border-white/10"
                   }`}
                   style={{ backgroundColor: colorOption.hex }}
-                />
+                >
+                  {isTransparent && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-full h-0.5 bg-red-500 -rotate-45" />
+                    </div>
+                  )}
+                </button>
               );
             })}
           </div>

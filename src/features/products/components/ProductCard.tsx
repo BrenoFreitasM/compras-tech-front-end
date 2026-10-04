@@ -33,7 +33,7 @@ function ContactButton({ whatsappUrl }: { whatsappUrl: string | null }) {
   if (!whatsappUrl) {
     return (
       <span className="flex-1 h-8 flex items-center justify-center text-xs text-text-tertiary border border-dashed border-brand-border  rounded-lg">
-        Contato via grupo
+        Número indisponível
       </span>
     );
   }
