@@ -21,7 +21,7 @@ export function parseProductFilters(params: SearchParams): ProductFilters {
 
   return {
     search: read("search"),
-    category: read("category"),
+    category: read("category").split(",").filter(Boolean),
     storage: read("storage"),
     color: read("color"),
     minPrice: toPositiveNumber(read("minPrice")),
@@ -38,6 +38,11 @@ export function serializeProductFilters(filters: ProductFilters): string {
 
   (Object.keys(FILTER_QUERY_KEYS) as Array<keyof ProductFilters>).forEach((key) => {
     const value = filters[key];
+    if (key === "category") {
+      const arr = value as string[];
+      if (arr.length > 0) params.set(FILTER_QUERY_KEYS[key], arr.join(","));
+      return;
+    }
     if (value === undefined || value === "" || value === DEFAULT_PRODUCT_FILTERS[key]) return;
     params.set(FILTER_QUERY_KEYS[key], String(value));
   });
@@ -47,9 +52,10 @@ export function serializeProductFilters(filters: ProductFilters): string {
 
 export function hasActiveFilters(filters: ProductFilters): boolean {
   const { sort: _sort, page: _page, ...criteria } = filters;
-  return (Object.keys(criteria) as Array<keyof typeof criteria>).some(
-    (key) => criteria[key] !== undefined && criteria[key] !== DEFAULT_PRODUCT_FILTERS[key],
-  );
+  return (Object.keys(criteria) as Array<keyof typeof criteria>).some((key) => {
+    if (key === "category") return (criteria[key] as string[]).length > 0;
+    return criteria[key] !== undefined && criteria[key] !== DEFAULT_PRODUCT_FILTERS[key];
+  });
 }
 
 function isWithinRange(value: number | null, min?: number, max?: number): boolean {

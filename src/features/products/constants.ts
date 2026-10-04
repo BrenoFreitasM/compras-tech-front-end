@@ -23,7 +23,7 @@ export const SORT_OPTIONS: ReadonlyArray<{ value: ProductSort; label: string }> 
 
 export const DEFAULT_PRODUCT_FILTERS: ProductFilters = {
   search: "",
-  category: "",
+  category: [],
   storage: "",
   color: "",
   minPrice: undefined,

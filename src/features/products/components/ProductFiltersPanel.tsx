@@ -39,20 +39,35 @@ export function ProductFiltersPanel({ categories }: ProductFiltersPanelProps) {
       )}
 
       <div className="divide-y divide-brand-border border-t border-brand-border">
-        <FilterSection title="Categoria">
-          <select
-            aria-label="Categoria"
-            value={filters.category}
-            onChange={(event) => updateFilters({ category: event.target.value })}
-            className={FIELD_CLASS}
-          >
-            <option value="">Todas</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
+        <FilterSection title="Categoria" defaultOpen={true}>
+          <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+            {categories.map((category) => {
+              const isSelected = filters.category.includes(category);
+              return (
+                <label key={category} className="flex items-center gap-3 cursor-pointer group">
+                  <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
+                    isSelected ? "bg-[#2563EB] border-[#2563EB]" : "border-brand-border group-hover:border-[#2563EB]/50"
+                  }`}>
+                    {isSelected && <svg viewBox="0 0 14 14" fill="none" className="w-3 h-3 text-white"><path d="M3 7.5L5.5 10L11 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                  </div>
+                  <input
+                    type="checkbox"
+                    className="sr-only"
+                    checked={isSelected}
+                    onChange={() => {
+                      const newCategories = isSelected
+                        ? filters.category.filter((c) => c !== category)
+                        : [...filters.category, category];
+                      updateFilters({ category: newCategories });
+                    }}
+                  />
+                  <span className={`text-sm ${isSelected ? "text-text-primary font-medium" : "text-text-secondary group-hover:text-text-primary"}`}>
+                    {category}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
         </FilterSection>
 
         <FilterSection title="Faixa de preço">

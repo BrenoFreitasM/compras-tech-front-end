@@ -120,7 +120,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
                     </div>
                     <hr className="my-1 border-brand-border " />
                     <a
-                      href="#"
+                      href="/logout"
                       className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                     >
                       <LogOut className="w-4 h-4" />

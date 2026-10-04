@@ -30,6 +30,8 @@ function ErrorState({ message }: { message: string }) {
   );
 }
 
+import { redirect } from "next/navigation";
+
 /** Server Component: fetches products on the server so the back-end URL stays private and CORS is not needed. */
 export async function ProductResults({ filters }: ProductResultsProps) {
   let result: import("../types").PaginatedProducts;
@@ -37,6 +39,9 @@ export async function ProductResults({ filters }: ProductResultsProps) {
   try {
     result = await listProducts(filters);
   } catch (error) {
+    if (error instanceof ApiError && error.status === 401) {
+      redirect("/logout");
+    }
     console.error("[ProductResults] Failed to list products:", error);
     return <ErrorState message={getErrorMessage(error)} />;
   }

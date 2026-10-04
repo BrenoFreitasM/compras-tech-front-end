@@ -12,6 +12,9 @@ interface HomePageProps {
   searchParams: Promise<SearchParams>;
 }
 
+import { redirect } from "next/navigation";
+import { ApiError } from "@/services/errors";
+
 export default async function HomePage({ searchParams }: HomePageProps) {
   const filters = parseProductFilters(await searchParams);
   
@@ -19,6 +22,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   try {
     categories = await listCategories();
   } catch (error) {
+    if (error instanceof ApiError && error.status === 401) {
+      redirect("/logout");
+    }
     console.error("[HomePage] Failed to list categories:", error);
   }
 

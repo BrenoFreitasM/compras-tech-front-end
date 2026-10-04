@@ -13,7 +13,7 @@ function escapeRegex(value: string): string {
 function toApiQuery(filters: ProductFilters): QueryParams {
   return {
     modelo: escapeRegex(filters.search),
-    categoria: escapeRegex(filters.category),
+    categoria: filters.category.map(escapeRegex).join("|"),
     armazenamento: escapeRegex(filters.storage),
     cor: escapeRegex(filters.color),
     active: filters.includeInactive ? undefined : true,
@@ -23,8 +23,12 @@ function toApiQuery(filters: ProductFilters): QueryParams {
 }
 
 export async function listProducts(filters: ProductFilters): Promise<import("./types").PaginatedProducts> {
+  const token = await import("@/lib/session").then(m => m.getSessionToken());
+  const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
+
   const response = await api.get<ListProductsResponse | ProductDto[]>(PRODUCTS_ENDPOINT, {
     params: toApiQuery(filters),
+    headers,
     cache: "no-store",
   });
 
@@ -43,7 +47,11 @@ export async function listProducts(filters: ProductFilters): Promise<import("./t
 }
 
 export async function listCategories(): Promise<string[]> {
+  const token = await import("@/lib/session").then(m => m.getSessionToken());
+  const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
+
   const response = await api.get<import("./types").ListCategoriesResponse>("/categories", {
+    headers,
     cache: "no-store",
   });
   return response.categories.map((c) => c.name);
