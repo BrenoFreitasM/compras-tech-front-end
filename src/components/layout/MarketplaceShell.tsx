@@ -35,7 +35,7 @@ export function MarketplaceShell({ sidebar, children }: MarketplaceShellProps) {
               type="button"
               onClick={() => setSidebarCollapsed(false)}
               aria-label="Expandir filtros"
-              className="hidden lg:flex fixed left-0 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-6 h-12 bg-brand-surface dark:bg-brand-card border border-brand-border dark:border-brand-border-strong border-l-0 rounded-r-lg shadow-sm text-text-secondary hover:text-[#2563EB] transition-colors"
+              className="hidden lg:flex fixed left-0 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-6 h-12 bg-brand-surface dark:bg-brand-card border border-brand-border  border-l-0 rounded-r-lg shadow-sm text-text-secondary hover:text-[#2563EB] transition-colors"
             >
               <ChevronRight className="w-4 h-4" />
             </button>

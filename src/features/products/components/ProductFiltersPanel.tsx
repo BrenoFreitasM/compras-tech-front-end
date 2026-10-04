@@ -3,12 +3,12 @@
 import { RotateCcw } from "lucide-react";
 import { DebouncedInput } from "@/components/ui/DebouncedInput";
 import { FilterSection } from "@/components/ui/FilterSection";
-import { BATTERY_OPTIONS, SEARCH_DEBOUNCE_MS, STORAGE_OPTIONS } from "../constants";
+import { COLOR_OPTIONS, SEARCH_DEBOUNCE_MS, STORAGE_OPTIONS } from "../constants";
 import { hasActiveFilters } from "../filters";
 import { useProductFilters } from "../hooks/useProductFilters";
 
 const FIELD_CLASS =
-  "w-full h-10 px-3 bg-white dark:bg-brand-background border border-brand-border dark:border-brand-border-strong rounded-lg text-sm text-text-primary dark:text-white focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB]";
+  "w-full h-10 px-3 bg-brand-surface border border-brand-border rounded-lg text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB]";
 
 const LABEL_CLASS = "block text-xs font-medium text-text-tertiary mb-1.5";
 
@@ -38,7 +38,7 @@ export function ProductFiltersPanel({ categories }: ProductFiltersPanelProps) {
         </div>
       )}
 
-      <div className="divide-y divide-brand-border dark:divide-brand-border-strong border-t border-brand-border dark:border-brand-border-strong">
+      <div className="divide-y divide-brand-border border-t border-brand-border">
         <FilterSection title="Categoria">
           <select
             aria-label="Categoria"
@@ -100,7 +100,7 @@ export function ProductFiltersPanel({ categories }: ProductFiltersPanelProps) {
                   className={`px-3 h-8 rounded-lg text-xs font-medium border transition-colors ${
                     isSelected
                       ? "bg-[#2563EB] border-[#2563EB] text-white"
-                      : "border-brand-border dark:border-brand-border-strong text-text-secondary dark:text-gray-300 hover:border-[#2563EB]"
+                      : "border-brand-border text-text-secondary hover:border-[#2563EB]"
                   }`}
                 >
                   {storage}
@@ -110,32 +110,28 @@ export function ProductFiltersPanel({ categories }: ProductFiltersPanelProps) {
           </div>
         </FilterSection>
 
-        <FilterSection title="Saúde da bateria">
-          <select
-            aria-label="Saúde mínima da bateria"
-            value={filters.minBattery?.toString() ?? ""}
-            onChange={(event) => updateFilters({ minBattery: toOptionalNumber(event.target.value) })}
-            className={FIELD_CLASS}
-          >
-            <option value="">Qualquer</option>
-            {BATTERY_OPTIONS.map((battery) => (
-              <option key={battery} value={battery}>
-                {battery === 100 ? "100%" : `A partir de ${battery}%`}
-              </option>
-            ))}
-          </select>
-        </FilterSection>
-
         <FilterSection title="Cor" defaultOpen={false}>
-          <DebouncedInput
-            type="text"
-            aria-label="Cor"
-            placeholder="Ex: Preto, Azul..."
-            value={filters.color}
-            delayMs={SEARCH_DEBOUNCE_MS}
-            onDebouncedChange={(color) => updateFilters({ color })}
-            className={FIELD_CLASS}
-          />
+          <div className="flex flex-wrap gap-3">
+            {COLOR_OPTIONS.map((colorOption) => {
+              const isSelected = filters.color === colorOption.value;
+              return (
+                <button
+                  key={colorOption.value}
+                  type="button"
+                  aria-label={colorOption.label}
+                  title={colorOption.label}
+                  aria-pressed={isSelected}
+                  onClick={() => updateFilters({ color: isSelected ? "" : colorOption.value })}
+                  className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 ${
+                    isSelected
+                      ? "border-blue-600 ring-2 ring-blue-500/30 ring-offset-2 dark:ring-offset-gray-950 scale-110"
+                      : "border-black/10 dark:border-white/10"
+                  }`}
+                  style={{ backgroundColor: colorOption.hex }}
+                />
+              );
+            })}
+          </div>
         </FilterSection>
 
         <FilterSection title="Disponibilidade" defaultOpen={false}>
@@ -146,7 +142,7 @@ export function ProductFiltersPanel({ categories }: ProductFiltersPanelProps) {
               onChange={(event) => updateFilters({ includeInactive: event.target.checked })}
               className="w-4 h-4 accent-[#2563EB]"
             />
-            <span className="text-sm text-text-secondary dark:text-gray-300">Incluir ofertas de dias anteriores</span>
+            <span className="text-sm text-text-secondary">Incluir ofertas de dias anteriores</span>
           </label>
         </FilterSection>
       </div>

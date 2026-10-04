@@ -1,12 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
+export const viewport: Viewport = {
+  themeColor: "#FF4D00",
+};
+
 export const metadata: Metadata = {
   title: "ComprasTech",
   description: "Marketplace de smartphones e eletrônicos. Conecte-se com fornecedores.",
-  themeColor: "#FF4D00",
 };
 
 export default function RootLayout({

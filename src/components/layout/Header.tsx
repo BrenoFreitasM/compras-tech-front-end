@@ -30,7 +30,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-40 bg-[#F8FAFC] dark:bg-[#0F172A] backdrop-blur-xl border-b border-brand-border dark:border-brand-border-strong">
+    <header className="sticky top-0 z-40 bg-[#F8FAFC] dark:bg-[#0F172A] backdrop-blur-xl border-b border-brand-border ">
       {/* Desktop */}
       <div className="hidden md:block">
         <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 xl:gap-7 2xl:gap-10 px-4 lg:px-6 xl:px-8 2xl:px-12 h-14 lg:h-16 w-full">
@@ -38,7 +38,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
           <div className="flex min-w-0 items-center gap-3 xl:gap-4">
             <a href="/" className="flex-shrink-0">
               <span className="text-xl font-extrabold text-[#2563EB] tracking-tight">
-                ComprasTech<span className="text-text-primary dark:text-white">.app.br</span>
+                ComprasTech<span className="text-text-primary "></span>
               </span>
             </a>
           </div>
@@ -69,12 +69,12 @@ export default function Header({ onMenuToggle }: HeaderProps) {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-2 transition-all px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"
+                className="flex items-center gap-2 transition-all px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-brand-surface/5"
               >
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563EB] to-[#2563EB] flex items-center justify-center text-white text-sm font-bold shadow-md">
                   IR
                 </div>
-                <span className="hidden lg:block text-sm font-medium text-text-primary dark:text-white max-w-24 truncate">
+                <span className="hidden lg:block text-sm font-medium text-text-primary  max-w-24 truncate">
                   Isac Reis
                 </span>
                 <ChevronDown
@@ -85,29 +85,29 @@ export default function Header({ onMenuToggle }: HeaderProps) {
               {userMenuOpen && (
                 <>
                   <div className="fixed inset-0 z-10" onClick={() => setUserMenuOpen(false)} />
-                  <div className="absolute right-0 top-full mt-2 w-52 bg-white dark:bg-brand-card border border-brand-border dark:border-brand-border-strong rounded-xl shadow-xl py-1 z-20 animate-fade-in">
+                  <div className="absolute right-0 top-full mt-2 w-52 bg-brand-surface border border-brand-border  rounded-xl shadow-xl py-1 z-20 animate-fade-in">
                     {/* user info */}
-                    <div className="px-4 py-3 border-b border-brand-border dark:border-brand-border-strong">
-                      <p className="text-sm font-semibold text-text-primary dark:text-white">Isac Reis</p>
-                      <p className="text-xs text-text-secondary dark:text-gray-400 truncate">isac@email.com</p>
+                    <div className="px-4 py-3 border-b border-brand-border ">
+                      <p className="text-sm font-semibold text-text-primary ">Isac Reis</p>
+                      <p className="text-xs text-text-secondary  truncate">isac@email.com</p>
                     </div>
                     {/* menu items */}
                     <a
                       href="#"
-                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-text-primary dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-text-primary  hover:bg-gray-50 dark:hover:bg-brand-surface/5 transition-colors"
                     >
                       <User className="w-4 h-4 text-text-secondary" />
                       Meu Perfil
                     </a>
                     <a
                       href="#"
-                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-text-primary dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-text-primary  hover:bg-gray-50 dark:hover:bg-brand-surface/5 transition-colors"
                     >
                       <ShoppingBag className="w-4 h-4 text-text-secondary" />
                       Meus Pedidos
                     </a>
                     {/* dark/light toggle */}
-                    <div className="px-4 py-2.5 border-t border-brand-border dark:border-brand-border-strong mt-1">
+                    <div className="px-4 py-2.5 border-t border-brand-border  mt-1">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2.5">
                           {theme === "dark" ? (
@@ -115,7 +115,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
                           ) : (
                             <Sun className="w-4 h-4 text-text-secondary" />
                           )}
-                          <span className="text-sm text-text-primary dark:text-white">
+                          <span className="text-sm text-text-primary ">
                             {theme === "dark" ? "Modo Escuro" : "Modo Claro"}
                           </span>
                         </div>
@@ -127,14 +127,14 @@ export default function Header({ onMenuToggle }: HeaderProps) {
                           aria-label="Alternar tema"
                         >
                           <span
-                            className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 ${
+                            className={`absolute top-1 left-1 w-4 h-4 bg-brand-surface rounded-full shadow-sm transition-transform duration-300 ${
                               theme === "dark" ? "translate-x-4" : "translate-x-0"
                             }`}
                           />
                         </button>
                       </div>
                     </div>
-                    <hr className="my-1 border-brand-border dark:border-brand-border-strong" />
+                    <hr className="my-1 border-brand-border " />
                     <a
                       href="#"
                       className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
@@ -155,21 +155,21 @@ export default function Header({ onMenuToggle }: HeaderProps) {
         <div className="flex items-center justify-between px-4 h-14">
           <button
             onClick={onMenuToggle}
-            className="p-2 -ml-2 text-text-secondary hover:text-text-primary hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors"
+            className="p-2 -ml-2 text-text-secondary hover:text-text-primary hover:bg-black/5 dark:hover:bg-brand-surface/5 rounded-lg transition-colors"
           >
             <Menu className="w-6 h-6" />
           </button>
           <div className="flex flex-col items-center">
             <a href="/" className="flex-shrink-0">
               <span className="text-lg font-extrabold text-[#2563EB] tracking-tight">
-                ComprasTech<span className="text-text-primary dark:text-white">.app.br</span>
+                ComprasTech<span className="text-text-primary ">.app.br</span>
               </span>
             </a>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={toggleTheme}
-              className="p-2 text-text-secondary hover:text-text-primary hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors"
+              className="p-2 text-text-secondary hover:text-text-primary hover:bg-black/5 dark:hover:bg-brand-surface/5 rounded-lg transition-colors"
               aria-label="Alternar tema"
             >
               {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}

@@ -1,4 +1,3 @@
-/** Raw product as returned by `GET /products` on the back-end. */
 export interface ProductDto {
   _id: string;
   categoria?: string;
@@ -10,9 +9,9 @@ export interface ProductDto {
   versao: string | null;
   armazenamento: string | null;
   cor: string | null;
-  saude_bateria: string | null;
   preco: string | null;
   observacoes: string | null;
+  imageUrl?: string | null;
   remoteJid: string;
   messageId: string;
   timestamp: string;
@@ -42,15 +41,15 @@ export interface Product {
   version: string | null;
   storage: string | null;
   color: string | null;
-  batteryHealth: number | null;
   price: number | null;
   notes: string | null;
+  imageUrl: string;
   whatsappUrl: string | null;
   createdAt: string;
   isActive: boolean;
 }
 
-export type ProductSort = "recent" | "price-asc" | "price-desc" | "battery-desc";
+export type ProductSort = "recent" | "price-asc" | "price-desc";
 
 export interface ProductFilters {
   search: string;
@@ -59,7 +58,6 @@ export interface ProductFilters {
   color: string;
   minPrice?: number;
   maxPrice?: number;
-  minBattery?: number;
   includeInactive: boolean;
   sort: ProductSort;
 }

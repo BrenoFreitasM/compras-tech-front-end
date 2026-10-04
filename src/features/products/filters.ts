@@ -26,7 +26,6 @@ export function parseProductFilters(params: SearchParams): ProductFilters {
     color: read("color"),
     minPrice: toPositiveNumber(read("minPrice")),
     maxPrice: toPositiveNumber(read("maxPrice")),
-    minBattery: toPositiveNumber(read("minBattery")),
     includeInactive: read("includeInactive") === "true",
     sort: isProductSort(sort) ? sort : DEFAULT_PRODUCT_FILTERS.sort,
   };
@@ -61,9 +60,7 @@ function isWithinRange(value: number | null, min?: number, max?: number): boolea
 /** Filters the back-end cannot apply (numeric ranges over string fields). */
 export function applyLocalFilters(products: Product[], filters: ProductFilters): Product[] {
   return products.filter(
-    (product) =>
-      isWithinRange(product.price, filters.minPrice, filters.maxPrice) &&
-      isWithinRange(product.batteryHealth, filters.minBattery),
+    (product) => isWithinRange(product.price, filters.minPrice, filters.maxPrice),
   );
 }
 
@@ -74,7 +71,6 @@ const SORTERS: Record<ProductSort, ((a: Product, b: Product) => number) | null> 
   recent: null, // back-end already returns newest first
   "price-asc": (a, b) => compareNullableAsc(a.price, b.price),
   "price-desc": (a, b) => compareNullableDesc(a.price, b.price),
-  "battery-desc": (a, b) => compareNullableDesc(a.batteryHealth, b.batteryHealth),
 };
 
 export function sortProducts(products: Product[], sort: ProductSort): Product[] {

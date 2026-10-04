@@ -23,7 +23,7 @@ export function ProductSearchInput({ className }: ProductSearchInputProps) {
         value={filters.search}
         delayMs={SEARCH_DEBOUNCE_MS}
         onDebouncedChange={(search) => updateFilters({ search })}
-        className="w-full h-10 lg:h-11 pl-9 lg:pl-11 pr-4 bg-white dark:bg-brand-background border border-brand-border dark:border-brand-border-strong rounded-xl text-text-primary dark:text-white placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB] transition-all text-sm lg:text-base"
+        className="w-full h-10 lg:h-11 pl-9 lg:pl-11 pr-4 bg-brand-surface border border-brand-border rounded-xl text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB] transition-all text-sm lg:text-base"
       />
     </form>
   );

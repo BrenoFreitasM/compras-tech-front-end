@@ -34,7 +34,7 @@ export default function Sidebar({ children, isOpen, onClose, collapsed, onToggle
           fixed top-14 left-0 z-50 h-[calc(100%-56px)]
           lg:relative lg:top-0 lg:z-10 lg:h-auto lg:flex-shrink-0
           bg-brand-surface dark:bg-brand-card
-          border-r border-brand-border dark:border-brand-border-strong
+          border-r border-brand-border 
           transform transition-all duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0
@@ -45,9 +45,9 @@ export default function Sidebar({ children, isOpen, onClose, collapsed, onToggle
         `}
       >
         {/* Header da sidebar */}
-        <div className="sticky top-0 z-10 bg-brand-surface dark:bg-brand-card border-b border-brand-border dark:border-brand-border-strong">
+        <div className="sticky top-0 z-10 bg-brand-surface dark:bg-brand-card border-b border-brand-border ">
           <div className="flex items-center justify-between px-4 py-3">
-            <h2 className="text-base font-semibold text-text-primary dark:text-white">Filtros</h2>
+            <h2 className="text-base font-semibold text-text-primary ">Filtros</h2>
             <div className="flex items-center gap-1">
               {!collapsed && (
                 <button
@@ -63,7 +63,7 @@ export default function Sidebar({ children, isOpen, onClose, collapsed, onToggle
                 type="button"
                 onClick={onClose}
                 aria-label="Fechar filtros"
-                className="lg:hidden p-1.5 text-text-secondary hover:text-text-primary hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors"
+                className="lg:hidden p-1.5 text-text-secondary hover:text-text-primary hover:bg-black/5 dark:hover:bg-brand-surface/5 rounded-lg transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -78,7 +78,7 @@ export default function Sidebar({ children, isOpen, onClose, collapsed, onToggle
             onClick={handleAffiliate}
             className="w-full flex items-center gap-2.5 p-3 rounded-xl bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] text-left text-white shadow-lg shadow-[#2563EB]/50 ring-1 ring-[#2563EB]/40 hover:from-[#1D4ED8] hover:to-[#1E40AF] hover:shadow-[#2563EB]/70 transition-all"
           >
-            <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center">
+            <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-brand-surface/20 flex items-center justify-center">
               <Gift className="w-5 h-5" />
             </div>
             <div className="min-w-0">

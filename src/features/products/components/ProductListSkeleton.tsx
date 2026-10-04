@@ -11,7 +11,7 @@ export function ProductListSkeleton() {
         {Array.from({ length: SKELETON_ITEMS }, (_, index) => (
           <div
             key={index}
-            className="rounded-2xl border border-brand-border dark:border-brand-border-strong overflow-hidden"
+            className="rounded-2xl border border-brand-border  overflow-hidden"
           >
             <div className="aspect-[4/3] bg-gray-200 dark:bg-gray-800" />
             <div className="p-3 space-y-2">

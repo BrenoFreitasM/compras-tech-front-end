@@ -94,15 +94,15 @@ export default function PriceTrendChart() {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-gray-800/50 border border-brand-border dark:border-gray-700 rounded-xl p-5 shadow-sm mb-6">
+    <div className="bg-brand-surface dark:bg-gray-800/50 border border-brand-border dark:border-gray-700 rounded-xl p-5 shadow-sm mb-6">
       {/* <div className="mb-4">
-        <h2 className="text-gray-900 dark:text-white font-semibold text-lg">Produtos Mais Procurados</h2>
-        <p className="text-gray-500 dark:text-gray-400 text-sm">Variação de preços nos últimos 15 dias</p>
+        <h2 className="text-gray-900  font-semibold text-lg">Produtos Mais Procurados</h2>
+        <p className="text-gray-500  text-sm">Variação de preços nos últimos 15 dias</p>
       </div>
       <div className="w-full h-64 relative">
         <canvas ref={canvasRef}></canvas>
       </div> */}
-      <div className="mt-4 flex justify-center gap-4 text-xs text-gray-700 dark:text-gray-300">
+      <div className="mt-4 flex justify-center gap-4 text-xs text-gray-700 ">
         <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-[#2563EB]"></span> iPhone 13</div>
         <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-blue-500"></span> iPhone 14 Pro</div>
         <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-emerald-500"></span> MacBook Air</div>

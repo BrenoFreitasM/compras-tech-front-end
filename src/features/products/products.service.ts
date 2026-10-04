@@ -1,7 +1,7 @@
 import { api, type QueryParams } from "@/services/api";
 import { applyLocalFilters, sortProducts } from "./filters";
 import { toProduct } from "./mappers";
-import type { ListProductsResponse, Product, ProductFilters } from "./types";
+import type { ListProductsResponse, Product, ProductDto, ProductFilters } from "./types";
 
 const PRODUCTS_ENDPOINT = "/products";
 
@@ -21,12 +21,13 @@ function toApiQuery(filters: ProductFilters): QueryParams {
 }
 
 export async function listProducts(filters: ProductFilters): Promise<Product[]> {
-  const response = await api.get<ListProductsResponse>(PRODUCTS_ENDPOINT, {
+  const response = await api.get<ListProductsResponse | ProductDto[]>(PRODUCTS_ENDPOINT, {
     params: toApiQuery(filters),
     cache: "no-store",
   });
 
-  const products = response.data.map(toProduct);
+  const rawData = Array.isArray(response) ? response : response.data;
+  const products = (rawData || []).map(toProduct);
   return sortProducts(applyLocalFilters(products, filters), filters.sort);
 }
 

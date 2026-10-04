@@ -2,19 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 17, 24, 39;
-  --background-rgb: 243, 244, 246;
+@layer base {
+  :root {
+    --foreground-rgb: 17, 24, 39;
+    --background-rgb: 243, 244, 246;
+
+    /* Brand Colors */
+    --brand-background: #f3f4f6;
+    --brand-surface: #ffffff;
+    --brand-card: #ffffff;
+    --brand-border: #e5e7eb;
+    --brand-border-strong: #9ca3af;
+
+    /* Text Colors */
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-tertiary: #6b7280;
+    --text-muted: #9ca3af;
+  }
+
+  .dark {
+    --foreground-rgb: 243, 244, 246;
+    --background-rgb: 5, 5, 5;
+
+    /* Brand Colors (Dark Mode) */
+    --brand-background: #050505;
+    --brand-surface: #171717;
+    --brand-card: #111827;
+    --brand-border: #374151;
+    --brand-border-strong: #4b5563;
+
+    /* Text Colors (Dark Mode) */
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-tertiary: #9ca3af;
+    --text-muted: #6b7280;
+  }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
-}
-
-.dark body {
-  --foreground-rgb: 243, 244, 246;
-  --background-rgb: 5, 5, 5;
 }
 
 * {

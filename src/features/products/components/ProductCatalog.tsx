@@ -25,8 +25,8 @@ function EmptyState({ onClear }: { onClear: () => void }) {
         <Package className="w-8 h-8 text-text-tertiary" />
       </div>
       <div>
-        <p className="text-base font-semibold text-text-primary dark:text-white">Nenhum produto encontrado</p>
-        <p className="text-sm text-text-secondary dark:text-gray-400 mt-1">Tente ajustar os filtros ou a busca</p>
+        <p className="text-base font-semibold text-text-primary ">Nenhum produto encontrado</p>
+        <p className="text-sm text-text-secondary  mt-1">Tente ajustar os filtros ou a busca</p>
       </div>
       <button type="button" onClick={onClear} className="text-sm font-medium text-[#2563EB] hover:underline">
         Limpar filtros
@@ -44,14 +44,14 @@ export function ProductCatalog({ products, title }: ProductCatalogProps) {
     <section aria-busy={isPending} className={cn("transition-opacity", isPending && "opacity-60")}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
         <div>
-          <h1 className="text-lg font-bold text-text-primary dark:text-white">{title}</h1>
-          <p className="text-sm text-text-secondary dark:text-gray-400 mt-0.5">
+          <h1 className="text-lg font-bold text-text-primary ">{title}</h1>
+          <p className="text-sm text-text-secondary  mt-0.5">
             {products.length} {countLabel}
           </p>
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1 bg-brand-surface dark:bg-brand-card rounded-lg border border-brand-border dark:border-brand-border-strong shadow-sm p-1">
+          <div className="flex items-center gap-1 bg-brand-surface dark:bg-brand-card rounded-lg border border-brand-border  shadow-sm p-1">
             {VIEW_OPTIONS.map(({ value, label, Icon }) => (
               <button
                 key={value}
@@ -76,7 +76,7 @@ export function ProductCatalog({ products, title }: ProductCatalogProps) {
             aria-label="Ordenar produtos"
             value={filters.sort}
             onChange={(event) => updateFilters({ sort: event.target.value as ProductSort })}
-            className="text-sm border border-brand-border dark:border-brand-border-strong rounded-lg px-3 py-2 bg-white dark:bg-brand-card text-text-primary dark:text-white focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50"
+            className="text-sm border border-brand-border  rounded-lg px-3 py-2 bg-brand-surface text-text-primary  focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50"
           >
             {SORT_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>

@@ -23,8 +23,8 @@ function ErrorState({ message }: { message: string }) {
         <AlertTriangle className="w-8 h-8 text-red-500" />
       </div>
       <div>
-        <p className="text-base font-semibold text-text-primary dark:text-white">Erro ao carregar produtos</p>
-        <p className="text-sm text-text-secondary dark:text-gray-400 mt-1 max-w-md">{message}</p>
+        <p className="text-base font-semibold text-text-primary ">Erro ao carregar produtos</p>
+        <p className="text-sm text-text-secondary  mt-1 max-w-md">{message}</p>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { env } from "@/config/env";
 import type { Product, ProductDto } from "./types";
 
 const WHATSAPP_USER_SUFFIX = "@s.whatsapp.net";
@@ -13,14 +14,6 @@ export function parseBrlPrice(value: string | null): number | null {
 
   const price = Number.parseFloat(normalized);
   return Number.isFinite(price) ? price : null;
-}
-
-/** "87%" -> 87 | invalid/empty -> null */
-export function parsePercentage(value: string | null): number | null {
-  if (!value) return null;
-
-  const percentage = Number.parseInt(value.replace(/\D/g, ""), 10);
-  return Number.isFinite(percentage) ? percentage : null;
 }
 
 /** Only direct chats have a phone number; group JIDs (@g.us) return null. */
@@ -39,9 +32,9 @@ export function toProduct(dto: ProductDto): Product {
     version: dto.versao,
     storage: dto.armazenamento,
     color: dto.cor,
-    batteryHealth: parsePercentage(dto.saude_bateria),
     price: parseBrlPrice(dto.preco),
     notes: dto.observacoes,
+    imageUrl: dto.imageUrl || env.defaultProductImage,
     whatsappUrl: toWhatsAppUrl(dto.remoteJid),
     createdAt: dto.timestamp,
     isActive: dto.active,

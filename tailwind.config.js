@@ -5,22 +5,23 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
         brand: {
-          background: "#f3f4f6",
-          surface: "#ffffff",
-          card: "#111827",
-          border: "#e5e7eb",
-          "border-strong": "#374151",
+          background: "var(--brand-background)",
+          surface: "var(--brand-surface)",
+          card: "var(--brand-card)",
+          border: "var(--brand-border)",
+          "border-strong": "var(--brand-border-strong)",
         },
         text: {
-          primary: "#111827",
-          secondary: "#6b7280",
-          tertiary: "#9ca3af",
-          muted: "#d1d5db",
+          primary: "var(--text-primary)",
+          secondary: "var(--text-secondary)",
+          tertiary: "var(--text-tertiary)",
+          muted: "var(--text-muted)",
         },
       },
       keyframes: {

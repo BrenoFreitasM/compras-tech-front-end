@@ -1,5 +1,5 @@
-import { BatteryMedium, Calendar, Camera, Headphones, Laptop, MessageCircle, Package, Smartphone, Tablet, Watch } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import Image from "next/image";
+import { Calendar, MessageCircle } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { getProductTitle } from "../mappers";
 import type { Product } from "../types";
@@ -11,31 +11,12 @@ interface ProductCardProps {
   layout: ProductCardLayout;
 }
 
-const CATEGORY_ICONS: Record<string, LucideIcon> = {
-  smartphone: Smartphone,
-  smartwatch: Watch,
-  notebook: Laptop,
-  tablet: Tablet,
-  fone: Headphones,
-  câmera: Camera,
-};
-
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit" });
-
-function getCategoryIcon(category: string): LucideIcon {
-  return CATEGORY_ICONS[category.toLowerCase()] ?? Package;
-}
 
 function formatPostedAt(isoDate: string): string {
   const date = new Date(isoDate);
   const isToday = date.toDateString() === new Date().toDateString();
   return isToday ? "Hoje" : dateFormatter.format(date);
-}
-
-function getBatteryColor(battery: number): string {
-  if (battery >= 90) return "text-emerald-600 dark:text-emerald-400";
-  if (battery >= 80) return "text-amber-600 dark:text-amber-400";
-  return "text-red-600 dark:text-red-400";
 }
 
 function ProductSpecs({ product }: { product: Product }) {
@@ -46,17 +27,11 @@ function ProductSpecs({ product }: { product: Product }) {
       {specs.map((spec) => (
         <span
           key={spec}
-          className="px-2 py-0.5 rounded-md bg-gray-100 dark:bg-white/5 text-[11px] text-text-secondary dark:text-gray-300"
+          className="px-2 py-0.5 rounded-md bg-brand-background text-[11px] text-text-secondary "
         >
           {spec}
         </span>
       ))}
-      {product.batteryHealth !== null && (
-        <span className={cn("flex items-center gap-1 text-[11px] font-medium", getBatteryColor(product.batteryHealth))}>
-          <BatteryMedium className="w-3.5 h-3.5" />
-          {product.batteryHealth}%
-        </span>
-      )}
     </div>
   );
 }
@@ -64,7 +39,7 @@ function ProductSpecs({ product }: { product: Product }) {
 function ContactButton({ whatsappUrl }: { whatsappUrl: string | null }) {
   if (!whatsappUrl) {
     return (
-      <span className="flex-1 h-8 flex items-center justify-center text-xs text-text-tertiary border border-dashed border-brand-border dark:border-brand-border-strong rounded-lg">
+      <span className="flex-1 h-8 flex items-center justify-center text-xs text-text-tertiary border border-dashed border-brand-border  rounded-lg">
         Contato via grupo
       </span>
     );
@@ -84,23 +59,28 @@ function ContactButton({ whatsappUrl }: { whatsappUrl: string | null }) {
 }
 
 export function ProductCard({ product, layout }: ProductCardProps) {
-  const CategoryIcon = getCategoryIcon(product.category);
   const isList = layout === "list";
 
   return (
     <article
       className={cn(
-        "group bg-white dark:bg-brand-card rounded-2xl border border-brand-border dark:border-brand-border-strong hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/30 transition-all duration-200",
+        "group bg-brand-surface rounded-2xl border border-brand-border  hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/30 transition-all duration-200",
         isList ? "flex flex-col sm:flex-row gap-4 p-4" : "flex flex-col overflow-hidden hover:-translate-y-0.5",
       )}
     >
       <div
         className={cn(
-          "flex items-center justify-center bg-gradient-to-br from-blue-50 to-slate-100 dark:from-gray-900 dark:to-gray-800",
+          "relative overflow-hidden bg-gray-50 dark:bg-gray-900",
           isList ? "w-full h-24 sm:w-28 sm:h-28 rounded-xl flex-shrink-0" : "aspect-[4/3]",
         )}
       >
-        <CategoryIcon className="w-10 h-10 text-[#2563EB]/60" aria-hidden />
+        <Image
+          src={product.imageUrl}
+          alt={getProductTitle(product)}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
       </div>
 
       <div className={cn("flex flex-1 flex-col min-w-0", !isList && "p-3")}>
@@ -112,18 +92,18 @@ export function ProductCard({ product, layout }: ProductCardProps) {
           </span>
         </div>
 
-        <h3 className="text-sm font-semibold text-text-primary dark:text-white mt-0.5 line-clamp-2 leading-snug">
+        <h3 className="text-sm font-semibold text-text-primary  mt-0.5 line-clamp-2 leading-snug">
           {getProductTitle(product)}
         </h3>
 
         <ProductSpecs product={product} />
 
         {product.notes && (
-          <p className="text-[11px] text-text-tertiary dark:text-gray-400 mt-2 line-clamp-2">{product.notes}</p>
+          <p className="text-[11px] text-text-tertiary  mt-2 line-clamp-2">{product.notes}</p>
         )}
 
         <div className={cn("mt-auto pt-3 flex gap-3", isList ? "sm:items-center" : "flex-col")}>
-          <span className="text-base font-extrabold text-text-primary dark:text-white">
+          <span className="text-base font-extrabold text-text-primary ">
             {product.price !== null ? formatCurrency(product.price) : "Preço sob consulta"}
           </span>
           <div className={cn("flex", isList && "sm:ml-auto sm:w-48")}>

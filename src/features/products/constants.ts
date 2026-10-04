@@ -2,13 +2,23 @@ import type { ProductFilters, ProductSort } from "./types";
 
 export const STORAGE_OPTIONS = ["64GB", "128GB", "256GB", "512GB", "1TB"] as const;
 
-export const BATTERY_OPTIONS = [80, 85, 90, 95, 100] as const;
+export const COLOR_OPTIONS = [
+  { label: "Preto", value: "preto", hex: "#171717" },
+  { label: "Branco", value: "branco", hex: "#FFFFFF" },
+  { label: "Prata", value: "silver", hex: "#E5E7EB" },
+  { label: "Azul", value: "azul", hex: "#3B82F6" },
+  { label: "Verde", value: "verde", hex: "#22C55E" },
+  { label: "Rosa", value: "pink", hex: "#EC4899" },
+  { label: "Lilás", value: "lilas", hex: "#A855F7" },
+  { label: "Laranja", value: "laranja", hex: "#F97316" },
+  { label: "Vermelho", value: "vermelho", hex: "#EF4444" },
+  { label: "Dourado", value: "dourado", hex: "#EAB308" },
+] as const;
 
 export const SORT_OPTIONS: ReadonlyArray<{ value: ProductSort; label: string }> = [
   { value: "recent", label: "Mais recentes" },
   { value: "price-asc", label: "Menor preço" },
   { value: "price-desc", label: "Maior preço" },
-  { value: "battery-desc", label: "Melhor bateria" },
 ];
 
 export const DEFAULT_PRODUCT_FILTERS: ProductFilters = {
@@ -18,7 +28,6 @@ export const DEFAULT_PRODUCT_FILTERS: ProductFilters = {
   color: "",
   minPrice: undefined,
   maxPrice: undefined,
-  minBattery: undefined,
   includeInactive: false,
   sort: "recent",
 };
@@ -31,7 +40,6 @@ export const FILTER_QUERY_KEYS = {
   color: "cor",
   minPrice: "precoMin",
   maxPrice: "precoMax",
-  minBattery: "bateriaMin",
   includeInactive: "incluirAntigos",
   sort: "ordem",
 } as const satisfies Record<keyof ProductFilters, string>;
