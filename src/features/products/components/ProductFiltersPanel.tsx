@@ -1,0 +1,155 @@
+"use client";
+
+import { RotateCcw } from "lucide-react";
+import { DebouncedInput } from "@/components/ui/DebouncedInput";
+import { FilterSection } from "@/components/ui/FilterSection";
+import { BATTERY_OPTIONS, SEARCH_DEBOUNCE_MS, STORAGE_OPTIONS } from "../constants";
+import { hasActiveFilters } from "../filters";
+import { useProductFilters } from "../hooks/useProductFilters";
+
+const FIELD_CLASS =
+  "w-full h-10 px-3 bg-white dark:bg-brand-background border border-brand-border dark:border-brand-border-strong rounded-lg text-sm text-text-primary dark:text-white focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB]";
+
+const LABEL_CLASS = "block text-xs font-medium text-text-tertiary mb-1.5";
+
+function toOptionalNumber(value: string): number | undefined {
+  return value === "" ? undefined : Number(value);
+}
+
+interface ProductFiltersPanelProps {
+  categories: string[];
+}
+
+export function ProductFiltersPanel({ categories }: ProductFiltersPanelProps) {
+  const { filters, updateFilters, clearFilters } = useProductFilters();
+
+  return (
+    <div>
+      {hasActiveFilters(filters) && (
+        <div className="px-4 pb-3">
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="w-full flex items-center justify-center gap-2 h-9 text-sm font-medium text-[#2563EB] border border-[#2563EB]/40 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+          >
+            <RotateCcw className="w-4 h-4" />
+            Limpar filtros
+          </button>
+        </div>
+      )}
+
+      <div className="divide-y divide-brand-border dark:divide-brand-border-strong border-t border-brand-border dark:border-brand-border-strong">
+        <FilterSection title="Categoria">
+          <select
+            aria-label="Categoria"
+            value={filters.category}
+            onChange={(event) => updateFilters({ category: event.target.value })}
+            className={FIELD_CLASS}
+          >
+            <option value="">Todas</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </FilterSection>
+
+        <FilterSection title="Faixa de preço">
+          <div className="flex items-end gap-2">
+            <label className="flex-1">
+              <span className={LABEL_CLASS}>Mínimo (R$)</span>
+              <DebouncedInput
+                type="number"
+                min={0}
+                inputMode="numeric"
+                placeholder="0"
+                value={filters.minPrice?.toString() ?? ""}
+                delayMs={SEARCH_DEBOUNCE_MS}
+                onDebouncedChange={(value) => updateFilters({ minPrice: toOptionalNumber(value) })}
+                className={FIELD_CLASS}
+              />
+            </label>
+            <span className="pb-2.5 text-text-tertiary">-</span>
+            <label className="flex-1">
+              <span className={LABEL_CLASS}>Máximo (R$)</span>
+              <DebouncedInput
+                type="number"
+                min={0}
+                inputMode="numeric"
+                placeholder="Sem limite"
+                value={filters.maxPrice?.toString() ?? ""}
+                delayMs={SEARCH_DEBOUNCE_MS}
+                onDebouncedChange={(value) => updateFilters({ maxPrice: toOptionalNumber(value) })}
+                className={FIELD_CLASS}
+              />
+            </label>
+          </div>
+        </FilterSection>
+
+        <FilterSection title="Armazenamento">
+          <div className="flex flex-wrap gap-2">
+            {STORAGE_OPTIONS.map((storage) => {
+              const isSelected = filters.storage === storage;
+              return (
+                <button
+                  key={storage}
+                  type="button"
+                  aria-pressed={isSelected}
+                  onClick={() => updateFilters({ storage: isSelected ? "" : storage })}
+                  className={`px-3 h-8 rounded-lg text-xs font-medium border transition-colors ${
+                    isSelected
+                      ? "bg-[#2563EB] border-[#2563EB] text-white"
+                      : "border-brand-border dark:border-brand-border-strong text-text-secondary dark:text-gray-300 hover:border-[#2563EB]"
+                  }`}
+                >
+                  {storage}
+                </button>
+              );
+            })}
+          </div>
+        </FilterSection>
+
+        <FilterSection title="Saúde da bateria">
+          <select
+            aria-label="Saúde mínima da bateria"
+            value={filters.minBattery?.toString() ?? ""}
+            onChange={(event) => updateFilters({ minBattery: toOptionalNumber(event.target.value) })}
+            className={FIELD_CLASS}
+          >
+            <option value="">Qualquer</option>
+            {BATTERY_OPTIONS.map((battery) => (
+              <option key={battery} value={battery}>
+                {battery === 100 ? "100%" : `A partir de ${battery}%`}
+              </option>
+            ))}
+          </select>
+        </FilterSection>
+
+        <FilterSection title="Cor" defaultOpen={false}>
+          <DebouncedInput
+            type="text"
+            aria-label="Cor"
+            placeholder="Ex: Preto, Azul..."
+            value={filters.color}
+            delayMs={SEARCH_DEBOUNCE_MS}
+            onDebouncedChange={(color) => updateFilters({ color })}
+            className={FIELD_CLASS}
+          />
+        </FilterSection>
+
+        <FilterSection title="Disponibilidade" defaultOpen={false}>
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={filters.includeInactive}
+              onChange={(event) => updateFilters({ includeInactive: event.target.checked })}
+              className="w-4 h-4 accent-[#2563EB]"
+            />
+            <span className="text-sm text-text-secondary dark:text-gray-300">Incluir ofertas de dias anteriores</span>
+          </label>
+        </FilterSection>
+      </div>
+    </div>
+  );
+}

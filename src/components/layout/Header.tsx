@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-  Search,
   Gift,
   ChevronDown,
   Menu,
@@ -12,17 +11,15 @@ import {
   ShoppingBag,
   LogOut,
 } from "lucide-react";
-import { formatNumber } from "@/lib/utils";
 import { toast } from "sonner";
 import { useTheme } from "@/components/ThemeProvider";
+import { ProductSearchInput } from "@/features/products/components/ProductSearchInput";
 
 interface HeaderProps {
-  onSearch: (value: string) => void;
-  searchValue: string;
   onMenuToggle: () => void;
 }
 
-export default function Header({ onSearch, searchValue, onMenuToggle }: HeaderProps) {
+export default function Header({ onMenuToggle }: HeaderProps) {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
@@ -47,21 +44,7 @@ export default function Header({ onSearch, searchValue, onMenuToggle }: HeaderPr
           </div>
 
           {/* Search */}
-          <form
-            className="w-full min-w-0 max-w-4xl justify-self-center"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <div className="relative">
-              <Search className="absolute left-3 lg:left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-tertiary pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Buscar produtos..."
-                value={searchValue}
-                onChange={(e) => onSearch(e.target.value)}
-                className="w-full h-10 lg:h-11 pl-9 lg:pl-11 pr-9 bg-white dark:bg-brand-background border border-brand-border dark:border-brand-border-strong rounded-xl text-text-primary dark:text-white placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB] transition-all text-sm lg:text-base"
-              />
-            </div>
-          </form>
+          <ProductSearchInput className="w-full min-w-0 max-w-4xl justify-self-center" />
 
           {/* Actions */}
           <div className="flex items-center justify-end gap-2 xl:gap-3">
@@ -197,16 +180,7 @@ export default function Header({ onSearch, searchValue, onMenuToggle }: HeaderPr
           </div>
         </div>
         <div className="px-4 pb-3">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-tertiary pointer-events-none" />
-            <input
-              type="text"
-              placeholder="Buscar produtos..."
-              value={searchValue}
-              onChange={(e) => onSearch(e.target.value)}
-              className="w-full h-10 pl-9 pr-4 bg-white dark:bg-brand-background border border-brand-border dark:border-brand-border-strong rounded-xl text-text-primary dark:text-white placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB] transition-all text-sm"
-            />
-          </div>
+          <ProductSearchInput />
         </div>
       </div>
     </header>
