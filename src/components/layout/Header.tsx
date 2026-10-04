@@ -56,10 +56,10 @@ export default function Header({ onMenuToggle }: HeaderProps) {
                 className="flex items-center gap-2 transition-all px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-brand-surface/5"
               >
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563EB] to-[#2563EB] flex items-center justify-center text-white text-sm font-bold shadow-md">
-                  IR
+                  U
                 </div>
                 <span className="hidden lg:block text-sm font-medium text-text-primary  max-w-24 truncate">
-                  Isac Reis
+                  Usuário
                 </span>
                 <ChevronDown
                   className={`w-4 h-4 text-text-secondary transition-transform ${userMenuOpen ? "rotate-180" : ""}`}
@@ -70,13 +70,15 @@ export default function Header({ onMenuToggle }: HeaderProps) {
                 <>
                   <div className="fixed inset-0 z-10" onClick={() => setUserMenuOpen(false)} />
                   <div className="absolute right-0 top-full mt-2 w-52 bg-brand-surface border border-brand-border  rounded-xl shadow-xl py-1 z-20 animate-fade-in">
+                    {/* TODO: make profile */}
+
                     {/* user info */}
-                    <div className="px-4 py-3 border-b border-brand-border ">
+                    {/* <div className="px-4 py-3 border-b border-brand-border ">
                       <p className="text-sm font-semibold text-text-primary ">Isac Reis</p>
                       <p className="text-xs text-text-secondary  truncate">isac@email.com</p>
-                    </div>
+                    </div> */}
                     {/* menu items */}
-                    <a
+                    {/* <a
                       href="#"
                       className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-text-primary  hover:bg-gray-50 dark:hover:bg-brand-surface/5 transition-colors"
                     >
@@ -89,7 +91,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
                     >
                       <ShoppingBag className="w-4 h-4 text-text-secondary" />
                       Meus Pedidos
-                    </a>
+                    </a> */}
                     {/* dark/light toggle */}
                     <div className="px-4 py-2.5 border-t border-brand-border  mt-1">
                       <div className="flex items-center justify-between">
