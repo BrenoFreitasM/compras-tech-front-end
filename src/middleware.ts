@@ -15,13 +15,11 @@ export function middleware(request: NextRequest) {
   }
 
   if (!token && !isLoginPage) {
-    const loginUrl = new URL("/login", request.url);
-    return NextResponse.redirect(loginUrl);
+    return new NextResponse(null, { status: 302, headers: { Location: "/login" } });
   }
 
   if (token && isLoginPage) {
-    const homeUrl = new URL("/", request.url);
-    return NextResponse.redirect(homeUrl);
+    return new NextResponse(null, { status: 302, headers: { Location: "/" } });
   }
 
   return NextResponse.next();

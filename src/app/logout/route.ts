@@ -15,5 +15,9 @@ export async function GET(request: Request) {
   }
 
   await clearSession();
-  return NextResponse.redirect(new URL("/login", request.url));
+  
+  return new Response(null, {
+    status: 302,
+    headers: { Location: "/login" },
+  });
 }
