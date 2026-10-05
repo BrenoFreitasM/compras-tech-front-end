@@ -54,7 +54,10 @@ async function request<T>(method: string, endpoint: string, body?: unknown, opti
       body: body === undefined ? undefined : JSON.stringify(body),
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Falha de conexão com o servidor";
+    let message = error instanceof Error ? error.message : "Falha de conexão com o servidor";
+    if (message === "fetch failed") {
+      message = "Falha de conexão com o servidor (back-end indisponível ou porta incorreta).";
+    }
     throw new ApiError(NETWORK_ERROR_STATUS, message);
   }
 

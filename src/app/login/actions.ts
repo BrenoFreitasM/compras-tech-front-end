@@ -25,6 +25,7 @@ export async function loginAction(prevState: any, formData: FormData) {
       return { error: "Credenciais inválidas." };
     }
   } catch (error) {
+    console.error("[LoginAction] Login failed:", error);
     if (error instanceof ApiError) {
       return { error: error.message };
     }
