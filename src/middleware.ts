@@ -14,12 +14,16 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "localhost:3000";
+  const protocol = request.headers.get("x-forwarded-proto") || "http";
+  const baseUrl = `${protocol}://${host}`;
+
   if (!token && !isLoginPage) {
-    return new NextResponse(null, { status: 302, headers: { Location: "/login" } });
+    return NextResponse.redirect(new URL("/login", baseUrl));
   }
 
   if (token && isLoginPage) {
-    return new NextResponse(null, { status: 302, headers: { Location: "/" } });
+    return NextResponse.redirect(new URL("/", baseUrl));
   }
 
   return NextResponse.next();
