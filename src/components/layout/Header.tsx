@@ -70,13 +70,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
                 <>
                   <div className="fixed inset-0 z-10" onClick={() => setUserMenuOpen(false)} />
                   <div className="absolute right-0 top-full mt-2 w-52 bg-brand-surface border border-brand-border  rounded-xl shadow-xl py-1 z-20 animate-fade-in">
-                    {/* TODO: make profile */}
-
-                    {/* user info */}
-                    {/* <div className="px-4 py-3 border-b border-brand-border ">
-                      <p className="text-sm font-semibold text-text-primary ">Isac Reis</p>
-                      <p className="text-xs text-text-secondary  truncate">isac@email.com</p>
-                    </div> */}
+                    {/* user info (currently disabled) */}
                     {/* menu items */}
                     {/* <a
                       href="#"
@@ -161,7 +155,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
               {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563EB] to-[#2563EB] flex items-center justify-center text-white text-sm font-bold shadow-md">
-              IR
+              U
             </div>
           </div>
         </div>
