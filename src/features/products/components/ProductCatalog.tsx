@@ -64,7 +64,7 @@ export function ProductCatalog({ products, pagination, title }: ProductCatalogPr
         <EmptyState onClear={clearFilters} />
       ) : (
         <>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 animate-fade-in">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

@@ -31,7 +31,7 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
           <button
             type="button"
             onClick={clearFilters}
-            className="w-full flex items-center justify-center gap-2 h-9 text-sm font-medium text-[#2563EB] border border-[#2563EB]/40 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+            className="w-full flex items-center justify-center gap-2 h-9 text-sm font-medium text-[#2563EB] border border-[#2563EB]/40 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 active:scale-[0.98]"
           >
             <RotateCcw className="w-4 h-4" />
             Limpar filtros
@@ -46,10 +46,10 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
               const isSelected = filters.category === category;
               return (
                 <label key={category} className="flex items-center gap-3 cursor-pointer group">
-                  <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${
+                  <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-200 ${
                     isSelected ? "bg-[#2563EB] border-[#2563EB]" : "border-brand-border group-hover:border-[#2563EB]/50"
                   }`}>
-                    {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                    <div className={`w-1.5 h-1.5 rounded-full bg-white transition-transform duration-200 ${isSelected ? "scale-100" : "scale-0"}`} />
                   </div>
                   <input
                     type="radio"
@@ -71,18 +71,21 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
         </FilterSection>
 
         {models.length > 0 && (
-          <FilterSection title="Modelo" defaultOpen={true}>
-            <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-              {models.map((model) => {
-                const isSelected = filters.model.includes(model);
-                return (
-                  <label key={model} className="flex items-center gap-3 cursor-pointer group">
-                    <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
-                      isSelected ? "bg-[#2563EB] border-[#2563EB]" : "border-brand-border group-hover:border-[#2563EB]/50"
-                    }`}>
-                      {isSelected && <svg viewBox="0 0 14 14" fill="none" className="w-3 h-3 text-white"><path d="M3 7.5L5.5 10L11 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
-                    </div>
-                    <input
+          <div className="animate-fade-in">
+            <FilterSection title="Modelo" defaultOpen={true}>
+              <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                {models.map((model) => {
+                  const isSelected = filters.model.includes(model);
+                  return (
+                    <label key={model} className="flex items-center gap-3 cursor-pointer group">
+                      <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all duration-200 ${
+                        isSelected ? "bg-[#2563EB] border-[#2563EB]" : "border-brand-border group-hover:border-[#2563EB]/50"
+                      }`}>
+                        <svg viewBox="0 0 14 14" fill="none" className={`w-3 h-3 text-white transition-all duration-200 ${isSelected ? "scale-100 opacity-100" : "scale-50 opacity-0"}`}>
+                          <path d="M3 7.5L5.5 10L11 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <input
                       type="checkbox"
                       className="sr-only"
                       checked={isSelected}
@@ -101,6 +104,7 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
               })}
             </div>
           </FilterSection>
+          </div>
         )}
 
         <FilterSection title="Faixa de preço">
@@ -145,7 +149,7 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
                   type="button"
                   aria-pressed={isSelected}
                   onClick={() => updateFilters({ storage: isSelected ? "" : storage })}
-                  className={`px-3 h-8 rounded-lg text-xs font-medium border transition-colors ${
+                  className={`px-3 h-8 rounded-lg text-xs font-medium border transition-all duration-200 ${
                     isSelected
                       ? "bg-[#2563EB] border-[#2563EB] text-white"
                       : "border-brand-border text-text-secondary hover:border-[#2563EB]"
