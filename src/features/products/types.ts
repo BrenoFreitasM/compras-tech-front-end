@@ -57,6 +57,7 @@ export type ProductSort = "recent" | "price-asc" | "price-desc";
 export interface ProductFilters {
   search: string;
   category: string[];
+  model: string[];
   storage: string;
   color: string;
   minPrice?: number;

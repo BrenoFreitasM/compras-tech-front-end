@@ -11,8 +11,12 @@ function escapeRegex(value: string): string {
 }
 
 function toApiQuery(filters: ProductFilters): QueryParams {
+  const modelQuery = filters.model.length > 0 
+    ? filters.model.map(escapeRegex).join("|") 
+    : escapeRegex(filters.search);
+
   return {
-    modelo: escapeRegex(filters.search),
+    modelo: modelQuery,
     categoria: filters.category.map(escapeRegex).join("|"),
     armazenamento: escapeRegex(filters.storage),
     cor: escapeRegex(filters.color),
@@ -55,5 +59,26 @@ export async function listCategories(): Promise<string[]> {
     cache: "no-store",
   });
   return response.categories.map((c) => c.name);
+}
+
+export async function listModels(categories: string[]): Promise<string[]> {
+  if (categories.length === 0) return [];
+  
+  const token = await import("@/lib/session").then(m => m.getSessionToken());
+  const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
+
+  const categoria = categories.map(escapeRegex).join("|");
+
+  try {
+    const response = await api.get<{ success: boolean; data: string[] }>("/products/models", {
+      params: { categoria },
+      headers,
+      cache: "no-store",
+    });
+    return response.data || [];
+  } catch (error) {
+    console.error("[products.service] Failed to list models:", error);
+    return [];
+  }
 }
 

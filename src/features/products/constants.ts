@@ -25,6 +25,7 @@ export const SORT_OPTIONS: ReadonlyArray<{ value: ProductSort; label: string }> 
 export const DEFAULT_PRODUCT_FILTERS: ProductFilters = {
   search: "",
   category: [],
+  model: [],
   storage: "",
   color: "",
   minPrice: undefined,
@@ -38,6 +39,7 @@ export const DEFAULT_PRODUCT_FILTERS: ProductFilters = {
 export const FILTER_QUERY_KEYS = {
   search: "q",
   category: "categoria",
+  model: "modelo",
   storage: "armazenamento",
   color: "cor",
   minPrice: "precoMin",
