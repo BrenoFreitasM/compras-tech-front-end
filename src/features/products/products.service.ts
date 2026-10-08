@@ -17,7 +17,7 @@ function toApiQuery(filters: ProductFilters): QueryParams {
 
   return {
     modelo: modelQuery,
-    categoria: filters.category.map(escapeRegex).join("|"),
+    categoria: escapeRegex(filters.category),
     armazenamento: escapeRegex(filters.storage),
     cor: escapeRegex(filters.color),
     active: filters.includeInactive ? undefined : true,

@@ -23,8 +23,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
   try {
     categories = await listCategories();
-    if (filters.category.length > 0) {
-      models = await listModels(filters.category);
+    if (filters.category) {
+      models = await listModels([filters.category]);
     }
   } catch (error) {
     if (error instanceof ApiError && error.status === 401) {
