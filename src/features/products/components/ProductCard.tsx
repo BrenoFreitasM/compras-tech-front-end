@@ -88,15 +88,15 @@ export function ProductCard({ product }: { product: Product }) {
           <p className="text-xs text-text-tertiary mt-2.5 line-clamp-2 leading-relaxed">{product.notes}</p>
         )}
 
-        <div className="mt-auto pt-5 flex flex-col sm:flex-row gap-4 sm:items-end justify-between">
-          <div className="flex flex-col">
-            <span className="text-xs font-medium text-text-tertiary mb-1">Valor à vista</span>
-            <span className="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-500 tracking-tight leading-none">
+        <div className="mt-auto pt-5 flex justify-end">
+          <div className="flex flex-col w-full sm:w-64">
+            <span className="text-[11px] font-medium text-text-tertiary mb-1">Valor à vista</span>
+            <span className="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-500 tracking-tight leading-none mb-3">
               {product.price !== null ? formatCurrency(product.price) : "Sob consulta"}
             </span>
-          </div>
-          <div className="flex sm:w-56 shrink-0">
-            <ContactButton whatsappUrl={product.whatsappUrl} />
+            <div className="flex w-full">
+              <ContactButton whatsappUrl={product.whatsappUrl} />
+            </div>
           </div>
         </div>
       </div>
