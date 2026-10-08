@@ -1,4 +1,4 @@
-const DEFAULT_API_URL = "http://127.0.0.1:3001";
+const DEFAULT_API_URL = "http://127.0.0.1:3002";
 
 function readApiUrl(): string {
   const url = process.env.API_URL ?? DEFAULT_API_URL;
