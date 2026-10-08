@@ -25,21 +25,21 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
   const { filters, updateFilters, clearFilters } = useProductFilters();
 
   return (
-    <div>
-      {hasActiveFilters(filters) && (
-        <div className="px-4 pb-3">
-          <button
-            type="button"
-            onClick={clearFilters}
-            className="w-full flex items-center justify-center gap-2 h-9 text-sm font-medium text-[#2563EB] border border-[#2563EB]/40 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 active:scale-[0.98]"
-          >
-            <RotateCcw className="w-4 h-4" />
-            Limpar filtros
-          </button>
-        </div>
-      )}
+    <div className="flex flex-col h-full flex-1">
+      <div className="px-4 pb-3 h-12 shrink-0">
+        <button
+          type="button"
+          onClick={clearFilters}
+          className={`w-full flex items-center justify-center gap-2 h-9 text-sm font-medium text-[#2563EB] border border-[#2563EB]/40 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 active:scale-[0.98] ${
+            hasActiveFilters(filters) ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"
+          }`}
+        >
+          <RotateCcw className="w-4 h-4" />
+          Limpar filtros
+        </button>
+      </div>
 
-      <div className="divide-y divide-brand-border border-t border-brand-border">
+      <div className="divide-y divide-brand-border border-t border-brand-border flex-1 overflow-y-auto custom-scrollbar">
         <FilterSection title="Categoria" defaultOpen={true}>
           <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
             {categories.map((category) => {
@@ -70,22 +70,21 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
           </div>
         </FilterSection>
 
-        {models.length > 0 && (
-          <div className="animate-fade-in">
-            <FilterSection title="Modelo" defaultOpen={true}>
-              <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-                {models.map((model) => {
-                  const isSelected = filters.model.includes(model);
-                  return (
-                    <label key={model} className="flex items-center gap-3 cursor-pointer group">
-                      <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all duration-200 ${
-                        isSelected ? "bg-[#2563EB] border-[#2563EB]" : "border-brand-border group-hover:border-[#2563EB]/50"
-                      }`}>
-                        <svg viewBox="0 0 14 14" fill="none" className={`w-3 h-3 text-white transition-all duration-200 ${isSelected ? "scale-100 opacity-100" : "scale-50 opacity-0"}`}>
-                          <path d="M3 7.5L5.5 10L11 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      <input
+        <FilterSection title="Modelo" defaultOpen={true}>
+          <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar min-h-[40px]">
+            {models.length > 0 ? (
+              models.map((model) => {
+                const isSelected = filters.model.includes(model);
+                return (
+                  <label key={model} className="flex items-center gap-3 cursor-pointer group">
+                    <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all duration-200 ${
+                      isSelected ? "bg-[#2563EB] border-[#2563EB]" : "border-brand-border group-hover:border-[#2563EB]/50"
+                    }`}>
+                      <svg viewBox="0 0 14 14" fill="none" className={`w-3 h-3 text-white transition-all duration-200 ${isSelected ? "scale-100 opacity-100" : "scale-50 opacity-0"}`}>
+                        <path d="M3 7.5L5.5 10L11 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                    <input
                       type="checkbox"
                       className="sr-only"
                       checked={isSelected}
@@ -101,11 +100,14 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
                     </span>
                   </label>
                 );
-              })}
-            </div>
-          </FilterSection>
+              })
+            ) : (
+              <p className="text-sm text-text-tertiary italic px-1 py-2">
+                Selecione uma categoria primeiro.
+              </p>
+            )}
           </div>
-        )}
+        </FilterSection>
 
         <FilterSection title="Faixa de preço">
           <div className="flex items-end gap-2">

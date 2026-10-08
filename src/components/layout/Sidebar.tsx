@@ -31,6 +31,7 @@ export default function Sidebar({ children, isOpen, onClose, collapsed, onToggle
 
       <aside
         className={`
+          flex flex-col
           fixed top-14 left-0 z-50 h-[calc(100%-56px)]
           lg:relative lg:top-0 lg:z-10 lg:h-auto lg:flex-shrink-0
           bg-brand-surface dark:bg-brand-card
