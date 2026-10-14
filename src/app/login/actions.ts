@@ -7,7 +7,7 @@ import { ApiError } from "@/services/errors";
 
 export async function loginAction(prevState: any, formData: FormData) {
   const rawEmail = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
+  const password = formData.get("password")?.toString().trim();
 
   const email = rawEmail?.trim().toLowerCase();
 
