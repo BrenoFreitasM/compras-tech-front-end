@@ -1,11 +1,12 @@
 "use client";
 
-import { useActionState } from "react";
-import { Lock } from "lucide-react";
+import { useActionState, useState } from "react";
+import { Eye, EyeOff, Lock } from "lucide-react";
 import { loginAction } from "./actions";
 
 export default function LoginPage() {
   const [state, action, isPending] = useActionState(loginAction, undefined);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 p-4">
@@ -31,6 +32,9 @@ export default function LoginPage() {
               type="email"
               name="email"
               required
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
               placeholder="seu@email.com"
               className="w-full h-11 px-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
             />
@@ -38,13 +42,23 @@ export default function LoginPage() {
           
           <div className="space-y-1.5">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Senha</label>
-            <input
-              type="password"
-              name="password"
-              required
-              placeholder="••••••••"
-              className="w-full h-11 px-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                required
+                placeholder="••••••••"
+                className="w-full h-11 pl-4 pr-11 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1"
+                aria-label={showPassword ? "Ocultar senha" : "Ver senha"}
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
           
           <button
