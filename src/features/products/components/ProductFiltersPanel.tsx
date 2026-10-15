@@ -7,6 +7,7 @@ import { COLOR_OPTIONS, SEARCH_DEBOUNCE_MS, STORAGE_OPTIONS } from "../constants
 import { hasActiveFilters } from "../filters";
 import { useProductFilters } from "../hooks/useProductFilters";
 
+
 const FIELD_CLASS =
   "w-full h-10 px-3 bg-brand-surface border border-brand-border rounded-lg text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB]";
 
