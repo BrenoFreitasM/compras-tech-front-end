@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: compras-tech-front
+    build: .
+    restart: always
+    ports:
+      # Lado esquerdo: Porta 80 da VPS (Pública). 
+      # Lado direito: Porta 3000 interna do container do Next.js
+      - "3000:3000"

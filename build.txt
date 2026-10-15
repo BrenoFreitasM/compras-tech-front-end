@@ -1,0 +1,13 @@
+# 1. Limpa o container travado
+docker rm -f compras-tech-front
+
+# 2. Compila a imagem com um nome limpo (vai ser super rápido por causa do cache)
+docker build -t meu-frontend .
+
+# 3. Roda nativamente mapeando a porta 80 e puxando o .env.local
+docker run -d \
+  --name compras-tech-front \
+  --restart always \
+  -p 80:3000 \
+  --env-file .env.local \
+  meu-frontend
