@@ -47,22 +47,25 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
         <FilterSection title="Categoria" defaultOpen={true}>
           <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
             {categories.map((category) => {
-              const isSelected = filters.category === category;
+              const isSelected = filters.category.includes(category);
               return (
                 <label key={category} className="flex items-center gap-3 cursor-pointer group">
-                  <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all duration-200 ${
+                  <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all duration-200 ${
                     isSelected ? "bg-[#2563EB] border-[#2563EB]" : "border-brand-border group-hover:border-[#2563EB]/50"
                   }`}>
-                    <div className={`w-1.5 h-1.5 rounded-full bg-white transition-transform duration-200 ${isSelected ? "scale-100" : "scale-0"}`} />
+                    <svg viewBox="0 0 14 14" fill="none" className={`w-3 h-3 text-white transition-all duration-200 ${isSelected ? "scale-100 opacity-100" : "scale-50 opacity-0"}`}>
+                      <path d="M3 7.5L5.5 10L11 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
                   <input
-                    type="radio"
+                    type="checkbox"
                     className="sr-only"
-                    name="category"
                     checked={isSelected}
                     onChange={() => {
-                      const newCategory = isSelected ? "" : category;
-                      updateFilters({ category: newCategory, model: [] }); // reset model on category change
+                      const newCategories = isSelected
+                        ? filters.category.filter((c) => c !== category)
+                        : [...filters.category, category];
+                      updateFilters({ category: newCategories, model: [] }); // reset model on category change
                     }}
                   />
                   <span className={`text-sm ${isSelected ? "text-text-primary font-medium" : "text-text-secondary group-hover:text-text-primary"}`}>
