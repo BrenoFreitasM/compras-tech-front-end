@@ -23,6 +23,7 @@ interface ProductFiltersPanelProps {
 
 export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersPanelProps) {
   const { filters, updateFilters, clearFilters } = useProductFilters();
+  const isActive = hasActiveFilters(filters);
 
   return (
     <div className="flex flex-col h-full flex-1">
@@ -30,8 +31,11 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
         <button
           type="button"
           onClick={clearFilters}
-          className={`w-full flex items-center justify-center gap-2 h-9 text-sm font-medium text-[#2563EB] border border-[#2563EB]/40 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 active:scale-[0.98] ${
-            hasActiveFilters(filters) ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"
+          disabled={!isActive}
+          className={`w-full flex items-center justify-center gap-2 h-9 text-sm font-medium border rounded-lg transition-all duration-200 ${
+            isActive
+              ? "text-[#2563EB] border-[#2563EB]/40 hover:bg-blue-50 dark:hover:bg-blue-900/20 active:scale-[0.98] cursor-pointer"
+              : "text-text-tertiary border-brand-border bg-brand-surface/50 opacity-50 cursor-not-allowed"
           }`}
         >
           <RotateCcw className="w-4 h-4" />
