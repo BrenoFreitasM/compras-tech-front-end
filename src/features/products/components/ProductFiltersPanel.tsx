@@ -25,6 +25,7 @@ export function ProductFiltersPanel({ categories, models = [] }: ProductFiltersP
   const { filters, updateFilters, clearFilters } = useProductFilters();
   const isActive = hasActiveFilters(filters);
 
+  
   return (
     <div className="flex flex-col h-full flex-1">
       <div className="px-4 pb-3 h-12 shrink-0">
