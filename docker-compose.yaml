@@ -8,4 +8,4 @@ services:
     ports:
       # Lado esquerdo: Porta 80 da VPS (Pública). 
       # Lado direito: Porta 3000 interna do container do Next.js
-      - "3000:3000"
+      - "3001:3000"
